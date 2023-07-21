@@ -9,14 +9,15 @@
 </head>
 <body>
     <!-- Cargamos el header desde el archivo header.html -->
+    <div id="header-container"></div>
     <script>
         fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
             .then(response => response.text())
             .then(data => {
                 const parser = new DOMParser();
                 const headerContent = parser.parseFromString(data, 'text/html').querySelector('header');
-                const body = document.querySelector('body');
-                body.insertBefore(headerContent, body.firstChild);
+                const headerContainer = document.getElementById('header-container');
+                headerContainer.appendChild(headerContent);
             })
             .catch(error => console.log(error));
     </script>
@@ -118,3 +119,4 @@
     </script>
 </body>
 </html>
+
