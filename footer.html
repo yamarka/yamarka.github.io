@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <style>
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <p>&copy; <span id="current-year"></span> TecnoNewsUY. Todos los derechos reservados.</p>
+
+        <script>
+            // JavaScript para obtener el año actual y mostrarlo en el pie de página
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+</html>

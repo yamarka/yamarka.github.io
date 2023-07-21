@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TecnoNewsUY - Inicio</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="titulo-principal">TecnoNewsUY</h1>
+        <nav class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="page1.html">Noticias</a>
+            <a href="page2.html">Última Hora</a>
+            <a href="page3.html">Ofertas</a>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h2 class="section-title">Últimas Noticias</h2>
+
+        <section id="noticias-lista" class="noticias-lista" data-categoria="">
+            <!-- Aquí se mostrarán las últimas noticias -->
+        </section>
+    </div>
+    
+    <script src="script.js"></script>
+    <script>
+        fetch('https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/todaslasnoticias/todaslasnoticias.json')
+            .then(response => response.json())
+            .then(data => {
+                const noticiasLista = document.getElementById('noticias-lista');
+                const noticiasPorCategoria = agruparNoticiasPorCategoria(data);
+                const ultimasNoticias = obtenerUltimasNoticias(noticiasPorCategoria, 3);
+                mostrarNoticias(ultimasNoticias, noticiasLista);
+                agregarEnlaces(ultimasNoticias, noticiasLista);
+            })
+            .catch(error => console.log(error));
+
+        function agruparNoticiasPorCategoria(noticias) {
+            const noticiasPorCategoria = {};
+            noticias.forEach(noticia => {
+                const categoria = noticia.categoria;
+                if (!noticiasPorCategoria.hasOwnProperty(categoria)) {
+                    noticiasPorCategoria[categoria] = [];
+                }
+                noticiasPorCategoria[categoria].push(noticia);
+            });
+            return noticiasPorCategoria;
+        }
+
+        function obtenerUltimasNoticias(noticiasPorCategoria, cantidad) {
+            const ultimasNoticias = [];
+            const noticiasVistas = new Set();
+
+            for (const categoria in noticiasPorCategoria) {
+                const noticiasCategoria = noticiasPorCategoria[categoria];
+                for (let i = noticiasCategoria.length - 1; i >= 0 && ultimasNoticias.length < cantidad; i--) {
+                    const noticia = noticiasCategoria[i];
+                    if (!noticiasVistas.has(noticia.titulo)) {
+                        ultimasNoticias.push(noticia);
+                        noticiasVistas.add(noticia.titulo);
+                    }
+                }
+            }
+
+            return ultimasNoticias;
+        }
+
+        function mostrarNoticias(noticias, contenedor) {
+            contenedor.innerHTML = '';
+
+            noticias.forEach(noticia => {
+                const divNoticia = document.createElement('div');
+                divNoticia.classList.add('noticia');
+
+                const titulo = document.createElement('h3');
+                titulo.classList.add('noticia-titulo');
+                titulo.textContent = noticia.titulo;
+
+                const contenido = document.createElement('p');
+                contenido.textContent = noticia.contenido;
+
+                const imagen = document.createElement('img');
+                imagen.src = noticia.imagen;
+                imagen.alt = noticia.titulo;
+
+                const enlace = document.createElement('a');
+                enlace.href = noticia.enlace_noticia;
+                enlace.textContent = 'Leer más';
+
+                divNoticia.appendChild(titulo);
+                divNoticia.appendChild(imagen);
+                divNoticia.appendChild(contenido);
+                divNoticia.appendChild(enlace);
+
+                contenedor.appendChild(divNoticia);
+            });
+        }
+
+        function agregarEnlaces(noticias, contenedor) {
+            const titulosNoticias = contenedor.querySelectorAll('.noticia-titulo');
+
+            titulosNoticias.forEach(tituloNoticia => {
+                const enlace = document.createElement('a');
+                enlace.href = noticias.find(noticia => noticia.titulo === tituloNoticia.innerText).enlace_noticia;
+                enlace.innerText = tituloNoticia.innerText;
+
+                tituloNoticia.innerHTML = '';
+                tituloNoticia.appendChild(enlace);
+            });
+        }
+    </script>
+</body>
+</html>
