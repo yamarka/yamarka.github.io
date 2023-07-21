@@ -8,16 +8,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 class="titulo-principal">TecnoNewsUY</h1>
-        <nav class="menu">
-            <a href="index.html">Inicio</a>
-            <a href="page1.html">Noticias</a>
-            <a href="page2.html">Última Hora</a>
-            <a href="page3.html">Ofertas</a>
-        </nav>
-    </header>
-    
+    <!-- Cargamos el header desde el archivo header.html -->
+    <script>
+        fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/header.html')
+            .then(response => response.text())
+            .then(data => {
+                const parser = new DOMParser();
+                const headerContent = parser.parseFromString(data, 'text/html').querySelector('header');
+                const body = document.querySelector('body');
+                body.insertBefore(headerContent, body.firstChild);
+            })
+            .catch(error => console.log(error));
+    </script>
+
     <div class="container">
         <h2 class="section-title">Últimas Noticias</h2>
 
@@ -26,9 +29,9 @@
         </section>
     </div>
     
-    <script src="script.js"></script>
+    <script src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json"></script>
     <script>
-        fetch('https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/todaslasnoticias/todaslasnoticias.json')
+        fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
             .then(response => response.json())
             .then(data => {
                 const noticiasLista = document.getElementById('noticias-lista');
