@@ -9,7 +9,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: 'https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/header.html',
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
                 dataType: 'html',
                 success: function (data) {
                     $('#header').html(data);
@@ -18,17 +18,17 @@
                     console.log('Error al obtener el header');
                 }
             });
-            
-            // Función para cargar noticias en el cuerpo
+
+            // Función para cargar noticias en el cuerpo con paginación
             function cargarNoticias(categoriaSeleccionada, pagina) {
-                $.getJSON('https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
                     var noticiasFiltradas = data.filter(noticia => noticia.categoria === categoriaSeleccionada);
                     var noticiasPorPagina = 5;
                     var inicio = (pagina - 1) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin);
+                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin).reverse(); // Invertir el orden
                     var cuerpoHTML = '';
-                    for (var i = noticiasPagina.length - 1; i >= 0; i--) {
+                    for (var i = 0; i < noticiasPagina.length; i++) { // Cambiar el bucle para mostrar noticias en orden decreciente
                         var noticia = noticiasPagina[i];
                         var previewContenido = noticia.contenido.length > 50 ? noticia.contenido.slice(0, 50) + '...' : noticia.contenido;
                         cuerpoHTML += `
@@ -70,7 +70,7 @@
 
             // Obtener el footer
             $.ajax({
-                url: 'https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/footer.html',
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
                 dataType: 'html',
                 success: function (data) {
                     $('#footer').html(data);
@@ -189,3 +189,4 @@
     <div id="footer"></div>
 </body>
 </html>
+
