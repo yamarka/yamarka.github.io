@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<body>
-    <div id="header"></div>
-    <div id="cuerpo"></div>
-    <div id="paginacion"></div>
-    <div id="footer"></div>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Últimas Noticias - Categoría 1</title>
+    <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -29,9 +27,29 @@
                     var inicio = (pagina - 1) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
                     var noticiasPagina = noticiasCategoria1.slice(inicio, fin);
-                    mostrarNoticias(noticiasPagina);
+                    mostrarNoticias(noticiasPagina); // Agregar esta línea
                     agregarBotonPaginacion(numPaginas, noticiasPorPagina, pagina);
                 });
+            }
+
+            // Función para mostrar las noticias en el cuerpo
+            function mostrarNoticias(noticiasPagina) {
+                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1</h2>';
+                for (var j = 0; j < noticiasPagina.length; j++) {
+                    var noticia = noticiasPagina[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                }
+                $('#cuerpo').html(cuerpoHTML);
             }
 
             // Función para agregar el menú de paginación
@@ -46,7 +64,7 @@
 
             // Al cargar la página, mostrar las noticias de la primera página (5 noticias por página)
             obtenerNoticiasEnPagina(1, 5);
-            
+
             // Obtener el footer
             $.ajax({
                 url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
@@ -200,3 +218,4 @@
     <div id="footer"></div>
 </body>
 </html>
+
