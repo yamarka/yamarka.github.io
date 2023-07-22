@@ -8,6 +8,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            var noticiasCategoria1 = []; // Variable para almacenar todas las noticias de categoría 1
+            var noticiasMostradas = 5; // Número de noticias a mostrar inicialmente
+            var noticiasPorPagina = 5; // Número de noticias por página
+
             $.ajax({
                 url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
                 dataType: 'html',
@@ -19,35 +23,45 @@
                 }
             });
 
-            // Función para mostrar las últimas 5 noticias para categoría 1
-            function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasCategoria1 = data.filter(function (noticia) {
-                        return noticia.categoria === "1";
-                    });
-
-                    var ultimasNoticias = noticiasCategoria1.slice(-5).reverse();
-
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
-                });
+            // Función para mostrar las noticias en función del número de noticias mostradas
+            function mostrarNoticias() {
+                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
+                for (var j = 0; j < noticiasMostradas; j++) {
+                    var noticia = noticiasCategoria1[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                }
+                $('#cuerpo').html(cuerpoHTML);
             }
 
-            mostrarUltimasNoticias();
+            // Función para mostrar más noticias cuando se hace clic en el botón "Ver más"
+            function verMasNoticias() {
+                noticiasMostradas += noticiasPorPagina;
+                mostrarNoticias();
+
+                // Ocultar el botón "Ver más" si se han mostrado todas las noticias
+                if (noticiasMostradas >= noticiasCategoria1.length) {
+                    $('#ver-mas-btn').hide();
+                }
+            }
+
+            // Obtener las noticias de categoría 1 y mostrar las primeras noticias
+            $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                noticiasCategoria1 = data.filter(function (noticia) {
+                    return noticia.categoria === "1";
+                });
+
+                mostrarNoticias();
+            });
 
             // Obtener el footer
             $.ajax({
@@ -60,6 +74,9 @@
                     console.log('Error al obtener el footer');
                 }
             });
+
+            // Agregar evento de clic al botón "Ver más"
+            $('#ver-mas-btn').on('click', verMasNoticias);
         });
     </script>
     <style>
@@ -165,12 +182,38 @@
         #footer {
             /* Estilos del footer obtenidos desde GitHub */
         }
+
+         /* Estilos para el botón "Ver más" */
+        #ver-mas-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #ver-mas-btn button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #ver-mas-btn button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div id="header"></div>
     <div id="cuerpo"></div>
     <div id="footer"></div>
+
+    <!-- Botón para ver más noticias -->
+    <div id="ver-mas-btn">
+        <button>Ver más</button>
+    </div>
 </body>
 <head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
-</html>
+</html>   
