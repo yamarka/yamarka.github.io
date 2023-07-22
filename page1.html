@@ -9,7 +9,7 @@
     <script>
         $(document).ready(function () {
             var noticiasCategoria1 = []; // Variable para almacenar todas las noticias de categoría 1
-            var noticiasMostradas = 5; // Número de noticias a mostrar inicialmente
+            var noticiasMostradas = 0; // Número de noticias mostradas inicialmente
             var noticiasPorPagina = 5; // Número de noticias por página
 
             $.ajax({
@@ -30,7 +30,10 @@
                         return noticia.categoria === "1";
                     });
 
-                    mostrarNoticias();
+                    // Invertir el arreglo para mostrar las noticias en orden inverso
+                    noticiasCategoria1.reverse();
+
+                    cargarMasNoticias(); // Mostrar las primeras noticias
 
                     // Agregar el evento de desplazamiento para cargar más noticias
                     $(window).on('scroll', checkScroll);
@@ -40,7 +43,8 @@
             // Función para mostrar las noticias en función del número de noticias mostradas
             function mostrarNoticias() {
                 var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
-                for (var j = 0; j < noticiasMostradas; j++) {
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria1.length; j++) {
                     var noticia = noticiasCategoria1[j];
                     var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
                     cuerpoHTML += `
@@ -54,25 +58,40 @@
                         </div>
                     `;
                 }
-                $('#cuerpo').html(cuerpoHTML);
+                $('#cuerpo').append(cuerpoHTML);
             }
 
             // Función para verificar si el usuario llegó al final del contenido
             function checkScroll() {
-                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                if ($(window).scrollTop() + $(window).height() >= $('#cuerpo').height()) {
                     cargarMasNoticias();
                 }
             }
 
             // Función para cargar más noticias
             function cargarMasNoticias() {
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria1.length; j++) {
+                    var noticia = noticiasCategoria1[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    var noticiaHTML = `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                    $('#cuerpo').append(noticiaHTML);
+                }
+
+                noticiasMostradas = final;
+
+                // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
                 if (noticiasMostradas >= noticiasCategoria1.length) {
-                    // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
                     $(window).off('scroll', checkScroll);
-                } else {
-                    // Cargar las siguientes noticias
-                    noticiasMostradas += noticiasPorPagina;
-                    mostrarNoticias();
                 }
             }
 
@@ -196,26 +215,6 @@
             /* Estilos del footer obtenidos desde GitHub */
         }
 
-         /* Estilos para el botón "Ver más" */
-        #ver-mas-btn {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #ver-mas-btn button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        #ver-mas-btn button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
