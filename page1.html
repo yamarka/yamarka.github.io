@@ -7,18 +7,10 @@
     <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el header');
-                }
-            });
+        // Variable global para almacenar la página actual
+        var paginaActual = 1;
 
+        $(document).ready(function () {
             // Función para obtener las últimas 5 noticias de "categoria1"
             function obtenerUltimasNoticias(pagina, noticiasPorPagina) {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
@@ -58,14 +50,20 @@
             function agregarBotonPaginacion(numPaginas, noticiasPorPagina) {
                 var paginacionHTML = '<div id="menu-paginacion">';
                 for (var i = 1; i <= numPaginas; i++) {
-                    paginacionHTML += `<button class="btn-pagina" onclick="obtenerUltimasNoticias(${i}, ${noticiasPorPagina})">${i}</button>`;
+                    paginacionHTML += `<button class="btn-pagina" onclick="cambiarPagina(${i}, ${noticiasPorPagina})">${i}</button>`;
                 }
                 paginacionHTML += '</div>';
                 $('#paginacion').html(paginacionHTML);
             }
 
+            // Función para cambiar de página y obtener las noticias correspondientes
+            function cambiarPagina(pagina, noticiasPorPagina) {
+                paginaActual = pagina;
+                obtenerUltimasNoticias(paginaActual, noticiasPorPagina);
+            }
+
             // Al cargar la página, mostrar las noticias de la primera página (5 noticias por página)
-            obtenerUltimasNoticias(1, 5);
+            obtenerUltimasNoticias(paginaActual, 5);
 
             // Obtener el footer
             $.ajax({
@@ -189,10 +187,11 @@
         #menu-paginacion {
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .btn-pagina {
-            background-color: #4e2800;
+            background-color: #70421d;
             color: #fff;
             border: none;
             padding: 8px 15px;
@@ -204,7 +203,7 @@
         }
 
         .btn-pagina:hover {
-            background-color: #70421d;
+            background-color: #4e2800;
         }
 
         /* Estilos del footer */
