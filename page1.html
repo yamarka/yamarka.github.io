@@ -23,11 +23,12 @@
             function obtenerNoticiasEnPagina(pagina, noticiasPorPagina) {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
                     var noticiasCategoria1 = data.filter(noticia => noticia.categoria === "1");
+                    noticiasCategoria1.sort((a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)); // Ordenar noticias por fecha de publicación en orden descendente
                     var numPaginas = Math.ceil(noticiasCategoria1.length / noticiasPorPagina);
                     var inicio = (pagina - 1) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
                     var noticiasPagina = noticiasCategoria1.slice(inicio, fin);
-                    mostrarNoticias(noticiasPagina); // Agregar esta línea
+                    mostrarNoticias(noticiasPagina);
                     agregarBotonPaginacion(numPaginas, noticiasPorPagina, pagina);
                 });
             }
