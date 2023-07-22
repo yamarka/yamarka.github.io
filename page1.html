@@ -6,79 +6,6 @@
     <title>Últimas Noticias - Categoría 1</title>
     <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el header');
-                }
-            });
-
-            // Función para obtener las noticias en la página especificada
-            function obtenerNoticiasEnPagina(pagina, noticiasPorPagina) {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasCategoria1 = data.filter(noticia => noticia.categoria === "1");
-                    noticiasCategoria1.sort((a, b) => new Date(b.fecha_publicacion) - new Date(a.fecha_publicacion)); // Ordenar noticias por fecha de publicación en orden descendente
-                    var numPaginas = Math.ceil(noticiasCategoria1.length / noticiasPorPagina);
-                    var inicio = (pagina - 1) * noticiasPorPagina;
-                    var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasCategoria1.slice(inicio, fin);
-                    mostrarNoticias(noticiasPagina);
-                    agregarBotonPaginacion(numPaginas, noticiasPorPagina, pagina);
-                });
-            }
-
-            // Función para mostrar las noticias en el cuerpo
-            function mostrarNoticias(noticiasPagina) {
-                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1</h2>';
-                for (var j = 0; j < noticiasPagina.length; j++) {
-                    var noticia = noticiasPagina[j];
-                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                    cuerpoHTML += `
-                        <div class="noticia">
-                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                <h3>${noticia.titulo}</h3>
-                                <p>${previewContenido}...</p>
-                                <span class="leer-mas">Leer más</span>
-                            </a>
-                        </div>
-                    `;
-                }
-                $('#cuerpo').html(cuerpoHTML);
-            }
-
-            // Función para agregar el menú de paginación
-            function agregarBotonPaginacion(numPaginas, noticiasPorPagina, paginaActual) {
-                var paginacionHTML = '<div id="menu-paginacion">';
-                for (var i = 1; i <= numPaginas; i++) {
-                    paginacionHTML += `<button class="btn-pagina ${i === paginaActual ? 'pagina-actual' : ''}" onclick="obtenerNoticiasEnPagina(${i}, ${noticiasPorPagina})">${i}</button>`;
-                }
-                paginacionHTML += '</div>';
-                $('#paginacion').html(paginacionHTML);
-            }
-
-            // Al cargar la página, mostrar las noticias de la primera página (5 noticias por página)
-            obtenerNoticiasEnPagina(1, 5);
-
-            // Obtener el footer
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#footer').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el footer');
-                }
-            });
-        });
-    </script>
     <style>
         /* Estilos generales */
         body {
@@ -185,11 +112,6 @@
             margin-top: 20px;
         }
 
-        #menu-paginacion {
-            display: flex;
-            justify-content: center;
-        }
-
         .btn-pagina {
             background-color: #4e2800;
             color: #fff;
@@ -217,6 +139,89 @@
     <div id="cuerpo"></div>
     <div id="paginacion"></div>
     <div id="footer"></div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#header').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el header');
+                }
+            });
+
+            // Variables para controlar la paginación
+            var noticiasPorPagina = 5;
+            var paginaActual = 1;
+
+            // Función para obtener las noticias en la página especificada
+            function obtenerNoticiasEnPagina() {
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                    var noticiasCategoria1 = data.filter(noticia => noticia.categoria === "1");
+                    var numPaginas = Math.ceil(noticiasCategoria1.length / noticiasPorPagina);
+                    var inicio = (paginaActual - 1) * noticiasPorPagina;
+                    var fin = inicio + noticiasPorPagina;
+                    var noticiasPagina = noticiasCategoria1.slice(inicio, fin);
+                    mostrarNoticias(noticiasPagina);
+                    agregarBotonPaginacion(numPaginas);
+                });
+            }
+
+            // Función para mostrar las noticias en el cuerpo
+            function mostrarNoticias(noticiasPagina) {
+                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1</h2>';
+                for (var j = 0; j < noticiasPagina.length; j++) {
+                    var noticia = noticiasPagina[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                }
+                $('#cuerpo').html(cuerpoHTML);
+            }
+
+            // Función para agregar el menú de paginación
+            function agregarBotonPaginacion(numPaginas) {
+                var paginacionHTML = '<div id="menu-paginacion">';
+                for (var i = 1; i <= numPaginas; i++) {
+                    paginacionHTML += `<button class="btn-pagina ${i === paginaActual ? 'pagina-actual' : ''}" onclick="cambiarPagina(${i})">${i}</button>`;
+                }
+                paginacionHTML += '</div>';
+                $('#paginacion').html(paginacionHTML);
+            }
+
+            // Cambiar la página y volver a obtener las noticias
+            function cambiarPagina(pagina) {
+                paginaActual = pagina;
+                obtenerNoticiasEnPagina();
+            }
+
+            // Al cargar la página, mostrar las noticias de la primera página (5 noticias por página)
+            obtenerNoticiasEnPagina();
+            
+            // Obtener el footer
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#footer').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el footer');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 
