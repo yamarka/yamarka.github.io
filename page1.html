@@ -30,24 +30,10 @@
                         return noticia.categoria === "1";
                     });
 
-                    var ultimasNoticias = noticiasCategoria1.slice(-5).reverse();
+                    mostrarNoticias();
 
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
+                    // Agregar el evento de desplazamiento para cargar más noticias
+                    $(window).on('scroll', checkScroll);
                 });
             }
 
@@ -69,11 +55,28 @@
                 }
             }
 
+            // Función para mostrar las noticias en función del número de noticias mostradas
+            function mostrarNoticias() {
+                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
+                for (var j = 0; j < noticiasMostradas && j < noticiasCategoria1.length; j++) {
+                    var noticia = noticiasCategoria1[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                }
+                $('#cuerpo').html(cuerpoHTML);
+            }
+
             // Mostrar las primeras noticias
             mostrarUltimasNoticias();
-
-            // Agregar el evento de desplazamiento para cargar más noticias
-            $(window).on('scroll', checkScroll);
 
             // Obtener el footer
             $.ajax({
