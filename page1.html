@@ -37,28 +37,10 @@
                 });
             }
 
-            // Función para verificar si el usuario llegó al final del contenido
-            function checkScroll() {
-                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-                    cargarMasNoticias();
-                }
-            }
-
-            // Función para cargar más noticias
-            function cargarMasNoticias() {
-                noticiasMostradas += noticiasPorPagina;
-                mostrarNoticias();
-
-                // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
-                if (noticiasMostradas >= noticiasCategoria1.length) {
-                    $(window).off('scroll', checkScroll);
-                }
-            }
-
             // Función para mostrar las noticias en función del número de noticias mostradas
             function mostrarNoticias() {
                 var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
-                for (var j = 0; j < noticiasMostradas && j < noticiasCategoria1.length; j++) {
+                for (var j = 0; j < noticiasMostradas; j++) {
                     var noticia = noticiasCategoria1[j];
                     var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
                     cuerpoHTML += `
@@ -73,6 +55,25 @@
                     `;
                 }
                 $('#cuerpo').html(cuerpoHTML);
+            }
+
+            // Función para verificar si el usuario llegó al final del contenido
+            function checkScroll() {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                    cargarMasNoticias();
+                }
+            }
+
+            // Función para cargar más noticias
+            function cargarMasNoticias() {
+                if (noticiasMostradas >= noticiasCategoria1.length) {
+                    // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
+                    $(window).off('scroll', checkScroll);
+                } else {
+                    // Cargar las siguientes noticias
+                    noticiasMostradas += noticiasPorPagina;
+                    mostrarNoticias();
+                }
             }
 
             // Mostrar las primeras noticias
