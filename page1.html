@@ -27,7 +27,7 @@
                     var noticiasPorPagina = 5;
                     var inicio = (pagina - 1) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin);
+                    var noticiasPagina = noticiasFiltradas.slice(-fin, -inicio).reverse();
                     var cuerpoHTML = '';
                     for (var i = noticiasPagina.length - 1; i >= 0; i--) {
                         var noticia = noticiasPagina[i];
