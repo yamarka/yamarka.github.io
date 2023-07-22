@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page 1</title>
+    <title>Página 1</title>
     <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -19,40 +19,39 @@
                 }
             });
 
-            // Función para cargar noticias en el cuerpo con paginación
-            function cargarNoticias(categoriaSeleccionada, pagina) {
+            // Función para mostrar las últimas 5 noticias de categoría 1 en la página 1
+            function mostrarUltimasNoticias(categoriaSeleccionada, pagina) {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                    var noticiasUnicas = {};
                     var noticiasFiltradas = data.filter(noticia => noticia.categoria === categoriaSeleccionada);
                     var noticiasPorPagina = 5;
                     var inicio = (pagina - 1) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin).reverse(); // Invertir el orden
+                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin);
                     var cuerpoHTML = '';
-                    for (var i = 0; i < noticiasPagina.length; i++) { // Cambiar el bucle para mostrar noticias en orden decreciente
+                    for (var i = noticiasPagina.length - 1; i >= 0; i--) {
                         var noticia = noticiasPagina[i];
-                        var previewContenido = noticia.contenido.length > 50 ? noticia.contenido.slice(0, 50) + '...' : noticia.contenido;
+                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
                         cuerpoHTML += `
                             <div class="noticia">
                                 <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
                                     <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
                                     <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}</p>
+                                    <p>${previewContenido}...</p>
                                     <span class="leer-mas">Leer más</span>
                                 </a>
                             </div>
                         `;
                     }
                     $('#cuerpo').html(cuerpoHTML);
-                    agregarBotonPaginacion(noticiasFiltradas.length);
+                    agregarBotonPaginacion(noticiasFiltradas.length, categoriaSeleccionada);
                 });
             }
 
-            // Obtener el JSON y cargar las noticias de la categoría especificada
-            var categoriaSeleccionada = "1"; // Aquí puedes cambiar la categoría que desees mostrar
-            cargarNoticias(categoriaSeleccionada, 1);
+            mostrarUltimasNoticias("1", 1);
 
             // Función para agregar el botón de paginación
-            function agregarBotonPaginacion(totalNoticias) {
+            function agregarBotonPaginacion(totalNoticias, categoriaSeleccionada) {
                 var numPaginas = Math.ceil(totalNoticias / 5);
                 var paginacionHTML = '';
                 for (var i = 1; i <= numPaginas; i++) {
@@ -64,7 +63,7 @@
                     $('.btn-pagina').removeClass('activo');
                     $(this).addClass('activo');
                     var pagina = parseInt($(this).text());
-                    cargarNoticias(categoriaSeleccionada, pagina);
+                    mostrarUltimasNoticias(categoriaSeleccionada, pagina);
                 });
             }
 
@@ -79,12 +78,12 @@
                     console.log('Error al obtener el footer');
                 }
             });
-       });
+        });
     </script>
     <style>
         /* Estilos generales */
         body {
-            font-family: "Helvetica Neue", sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             margin: 0;
@@ -93,11 +92,18 @@
             background-position: center;
         }
 
+        /* Estilos del header */
+        #header {
+            /* Estilos del header obtenidos desde GitHub */
+        }
+
         /* Estilos del cuerpo y las noticias */
         #cuerpo {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
         .noticia {
@@ -107,6 +113,11 @@
             padding: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 8px;
         }
 
         .noticia:hover {
@@ -114,23 +125,30 @@
         }
 
         .imagen-noticia {
+            width: 100%;
             height: 200px;
             background-size: cover;
             background-position: center;
             margin-bottom: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
 
         h3 {
             margin: 0;
             font-size: 1.6rem;
             font-weight: bold;
-            color: #007BFF;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
         p {
             margin: 0;
             font-size: 1rem;
             color: #777;
+            text-align: center;
+            padding: 0 15px;
         }
 
         .leer-mas {
@@ -151,7 +169,12 @@
             text-decoration: none;
         }
 
-        /* Botón de paginación */
+        /* Estilos del footer */
+        #footer {
+            /* Estilos del footer obtenidos desde GitHub */
+        }
+
+        /* Estilos del menú de paginación */
         #paginacion {
             display: flex;
             justify-content: center;
@@ -159,7 +182,7 @@
         }
 
         .btn-pagina {
-            background-color: #b8860b;
+            background-color: #c19a6b;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -171,15 +194,13 @@
         }
 
         .btn-pagina:hover {
-            background-color: #ffd700;
+            background-color: #8b6b39;
         }
 
         .btn-pagina.activo {
-            background-color: #ffd700;
+            background-color: #8b6b39;
             font-weight: bold;
         }
-
-        /* Estilos del footer */
     </style>
 </head>
 <body>
@@ -189,4 +210,3 @@
     <div id="footer"></div>
 </body>
 </html>
-
