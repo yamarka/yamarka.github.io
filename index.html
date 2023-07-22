@@ -3,118 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YÄMÄRKÄ - Inicio</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>Últimas Noticias</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Cargamos el header desde el archivo header.html -->
-    <div id="header-container"></div>
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Cuerpo -->
+    <div class="cuerpo">
+        <h1 class="titulo">Últimas Noticias:</h1>
+        <div class="noticias" id="noticias"></div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <!-- Scripts -->
     <script>
+        // Obtener el header desde GitHub
         fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
             .then(response => response.text())
             .then(data => {
-                const parser = new DOMParser();
-                const headerContent = parser.parseFromString(data, 'text/html').querySelector('header');
-                const headerContainer = document.getElementById('header-container');
-                headerContainer.appendChild(headerContent);
-            })
-            .catch(error => console.log(error));
-    </script>
+                document.getElementById('header').innerHTML = data;
+            });
 
-    <div class="container">
-        <h2 class="section-title">Últimas Noticias</h2>
-
-        <section id="noticias-lista" class="noticias-lista" data-categoria="">
-            <!-- Aquí se mostrarán las últimas noticias -->
-        </section>
-    </div>
-    
-    <script src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json"></script>
-    <script>
+        // Obtener las últimas noticias desde el archivo JSON
         fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
             .then(response => response.json())
             .then(data => {
-                const noticiasLista = document.getElementById('noticias-lista');
-                const noticiasPorCategoria = agruparNoticiasPorCategoria(data);
-                const ultimasNoticias = obtenerUltimasNoticias(noticiasPorCategoria, 3);
-                mostrarNoticias(ultimasNoticias, noticiasLista);
-                agregarEnlaces(ultimasNoticias, noticiasLista);
-            })
-            .catch(error => console.log(error));
-
-        function agruparNoticiasPorCategoria(noticias) {
-            const noticiasPorCategoria = {};
-            noticias.forEach(noticia => {
-                const categoria = noticia.categoria;
-                if (!noticiasPorCategoria.hasOwnProperty(categoria)) {
-                    noticiasPorCategoria[categoria] = [];
-                }
-                noticiasPorCategoria[categoria].push(noticia);
-            });
-            return noticiasPorCategoria;
-        }
-
-        function obtenerUltimasNoticias(noticiasPorCategoria, cantidad) {
-            const ultimasNoticias = [];
-            const noticiasVistas = new Set();
-
-            for (const categoria in noticiasPorCategoria) {
-                const noticiasCategoria = noticiasPorCategoria[categoria];
-                for (let i = noticiasCategoria.length - 1; i >= 0 && ultimasNoticias.length < cantidad; i--) {
-                    const noticia = noticiasCategoria[i];
-                    if (!noticiasVistas.has(noticia.titulo)) {
-                        ultimasNoticias.push(noticia);
-                        noticiasVistas.add(noticia.titulo);
+                // Filtrar las últimas 3 noticias y evitar duplicados
+                const ultimasNoticias = data.reverse().reduce((acc, noticia) => {
+                    if (!acc.some(item => item.titulo === noticia.titulo)) {
+                        acc.push(noticia);
                     }
-                }
+                    return acc.length < 3 ? acc : acc.slice(0, 3);
+                }, []);
+
+                // Mostrar las noticias en el cuerpo
+                const noticiasContainer = document.getElementById('noticias');
+                ultimasNoticias.forEach(noticia => {
+                    const noticiaHTML = `
+                        <div class="noticia">
+                            <img class="imagen" src="${noticia.imagen}" alt="${noticia.titulo}">
+                            <h2>${noticia.titulo}</h2>
+                            <p class="contenido">${truncateText(noticia.contenido, 50)}</p>
+                            <a class="leer-mas" href="${noticia.enlace_noticia}" target="_blank">Leer más</a>
+                        </div>
+                    `;
+                    noticiasContainer.innerHTML += noticiaHTML;
+                });
+            });
+
+        // Obtener el footer desde GitHub
+        fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+
+        // Función para truncar el texto
+        function truncateText(text, limit) {
+            const words = text.split(' ');
+            if (words.length > limit) {
+                return words.slice(0, limit).join(' ') + '...';
             }
-
-            return ultimasNoticias;
-        }
-
-        function mostrarNoticias(noticias, contenedor) {
-            contenedor.innerHTML = '';
-
-            noticias.forEach(noticia => {
-                const divNoticia = document.createElement('div');
-                divNoticia.classList.add('noticia');
-
-                const titulo = document.createElement('h3');
-                titulo.classList.add('noticia-titulo');
-                titulo.textContent = noticia.titulo;
-
-                const contenido = document.createElement('p');
-                contenido.textContent = noticia.contenido;
-
-                const imagen = document.createElement('img');
-                imagen.src = noticia.imagen;
-                imagen.alt = noticia.titulo;
-
-                const enlace = document.createElement('a');
-                enlace.href = noticia.enlace_noticia;
-                enlace.textContent = 'Leer más';
-
-                divNoticia.appendChild(titulo);
-                divNoticia.appendChild(imagen);
-                divNoticia.appendChild(contenido);
-                divNoticia.appendChild(enlace);
-
-                contenedor.appendChild(divNoticia);
-            });
-        }
-
-        function agregarEnlaces(noticias, contenedor) {
-            const titulosNoticias = contenedor.querySelectorAll('.noticia-titulo');
-
-            titulosNoticias.forEach(tituloNoticia => {
-                const enlace = document.createElement('a');
-                enlace.href = noticias.find(noticia => noticia.titulo === tituloNoticia.innerText).enlace_noticia;
-                enlace.innerText = tituloNoticia.innerText;
-
-                tituloNoticia.innerHTML = '';
-                tituloNoticia.appendChild(enlace);
-            });
+            return text;
         }
     </script>
 </body>
