@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página 2</title>
+    <title>Última Hora</title>
     <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            var noticiasCategoria2 = []; // Variable para almacenar todas las noticias de categoría 2
+            var noticiasMostradas = 0; // Número de noticias mostradas inicialmente
+            var noticiasPorPagina = 5; // Número de noticias por página
+
             $.ajax({
                 url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
                 dataType: 'html',
@@ -19,53 +23,80 @@
                 }
             });
 
-            // Función para mostrar las últimas 5 noticias de categoría 2 en la página 2
-            function mostrarUltimasNoticias(categoriaSeleccionada, pagina) {
+            // Función para mostrar las últimas 5 noticias para categoría 2
+            function mostrarUltimasNoticias() {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
-                    var noticiasFiltradas = data.filter(noticia => noticia.categoria === categoriaSeleccionada);
-                    var noticiasPorPagina = 5;
-                    var inicio = (pagina - 1) * noticiasPorPagina;
-                    var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasFiltradas.slice(-fin, -inicio).reverse();
-                    var cuerpoHTML = '';
-                    for (var i = noticiasPagina.length - 1; i >= 0; i--) {
-                        var noticia = noticiasPagina[i];
-                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
-                    agregarBotonPaginacion(noticiasFiltradas.length, categoriaSeleccionada);
+                    noticiasCategoria2 = data.filter(function (noticia) {
+                        return noticia.categoria === "2";
+                    });
+
+                    // Invertir el arreglo para mostrar las noticias en orden inverso
+                    noticiasCategoria2.reverse();
+
+                    cargarMasNoticias(); // Mostrar las primeras noticias
+
+                    // Agregar el evento de desplazamiento para cargar más noticias
+                    $(window).on('scroll', checkScroll);
                 });
             }
 
-            mostrarUltimasNoticias("2", 1);
-
-            // Función para agregar el botón de paginación
-            function agregarBotonPaginacion(totalNoticias, categoriaSeleccionada) {
-                var numPaginas = Math.ceil(totalNoticias / 5);
-                var paginacionHTML = '';
-                for (var i = 1; i <= numPaginas; i++) {
-                    paginacionHTML += `<button class="btn-pagina">${i}</button>`;
+            // Función para mostrar las noticias en función del número de noticias mostradas
+            function mostrarNoticias() {
+                var cuerpoHTML = '<h2 class="titulo-noticias">Última Hora:</h2>';
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria2.length; j++) {
+                    var noticia = noticiasCategoria2[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
                 }
-                $('#paginacion').html(paginacionHTML);
-
-                $('.btn-pagina').on('click', function () {
-                    $('.btn-pagina').removeClass('activo');
-                    $(this).addClass('activo');
-                    var pagina = parseInt($(this).text());
-                    mostrarUltimasNoticias(categoriaSeleccionada, pagina);
-                });
+                $('#cuerpo').append(cuerpoHTML);
             }
+
+            // Función para verificar si el usuario llegó al final del contenido
+            function checkScroll() {
+                if ($(window).scrollTop() + $(window).height() >= $('#cuerpo').height()) {
+                    cargarMasNoticias();
+                }
+            }
+
+            // Función para cargar más noticias
+            function cargarMasNoticias() {
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria2.length; j++) {
+                    var noticia = noticiasCategoria2[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    var noticiaHTML = `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                    $('#cuerpo').append(noticiaHTML);
+                }
+
+                noticiasMostradas = final;
+
+                // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
+                if (noticiasMostradas >= noticiasCategoria2.length) {
+                    $(window).off('scroll', checkScroll);
+                }
+            }
+
+            // Mostrar las primeras noticias
+            mostrarUltimasNoticias();
 
             // Obtener el footer
             $.ajax({
@@ -104,6 +135,16 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+        }
+
+        .titulo-noticias {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            width: 100%;
+            margin-bottom: 30px;
         }
 
         .noticia {
@@ -174,39 +215,12 @@
             /* Estilos del footer obtenidos desde GitHub */
         }
 
-        /* Estilos del menú de paginación */
-        #paginacion {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .btn-pagina {
-            background-color: #c19a6b;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-pagina:hover {
-            background-color: #8b6b39;
-        }
-
-        .btn-pagina.activo {
-            background-color: #8b6b39;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
     <div id="header"></div>
     <div id="cuerpo"></div>
-    <div id="paginacion"></div>
     <div id="footer"></div>
 </body>
+<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
