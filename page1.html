@@ -43,14 +43,21 @@
                 $('#cuerpo').html(cuerpoHTML);
             }
 
-            // Función para mostrar más noticias cuando se hace clic en el botón "Ver más"
-            function verMasNoticias() {
+            // Función para verificar si el usuario llegó al final del contenido
+            function checkScroll() {
+                if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+                    cargarMasNoticias();
+                }
+            }
+
+            // Función para cargar más noticias
+            function cargarMasNoticias() {
                 noticiasMostradas += noticiasPorPagina;
                 mostrarNoticias();
 
-                // Ocultar el botón "Ver más" si se han mostrado todas las noticias
+                // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
                 if (noticiasMostradas >= noticiasCategoria1.length) {
-                    $('#ver-mas-btn').hide();
+                    $(window).off('scroll', checkScroll);
                 }
             }
 
@@ -61,6 +68,9 @@
                 });
 
                 mostrarNoticias();
+
+                // Agregar el evento de desplazamiento para cargar más noticias
+                $(window).on('scroll', checkScroll);
             });
 
             // Obtener el footer
@@ -74,9 +84,6 @@
                     console.log('Error al obtener el footer');
                 }
             });
-
-            // Agregar evento de clic al botón "Ver más"
-            $('#ver-mas-btn').on('click', verMasNoticias);
         });
     </script>
     <style>
@@ -209,11 +216,6 @@
     <div id="header"></div>
     <div id="cuerpo"></div>
     <div id="footer"></div>
-
-    <!-- Botón para ver más noticias -->
-    <div id="ver-mas-btn">
-        <button>Ver más</button>
-    </div>
 </body>
 <head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
-</html>   
+</html>
