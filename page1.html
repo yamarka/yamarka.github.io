@@ -23,24 +23,32 @@
                 }
             });
 
-            // Función para mostrar las noticias en función del número de noticias mostradas
-            function mostrarNoticias() {
-                var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
-                for (var j = 0; j < noticiasMostradas; j++) {
-                    var noticia = noticiasCategoria1[j];
-                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                    cuerpoHTML += `
-                        <div class="noticia">
-                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                <h3>${noticia.titulo}</h3>
-                                <p>${previewContenido}...</p>
-                                <span class="leer-mas">Leer más</span>
-                            </a>
-                        </div>
-                    `;
-                }
-                $('#cuerpo').html(cuerpoHTML);
+            // Función para mostrar las últimas 5 noticias para categoría 1
+            function mostrarUltimasNoticias() {
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                    noticiasCategoria1 = data.filter(function (noticia) {
+                        return noticia.categoria === "1";
+                    });
+
+                    var ultimasNoticias = noticiasCategoria1.slice(-5).reverse();
+
+                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias - Categoría 1:</h2>';
+                    for (var j = 0; j < ultimasNoticias.length; j++) {
+                        var noticia = ultimasNoticias[j];
+                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                        cuerpoHTML += `
+                            <div class="noticia">
+                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                    <h3>${noticia.titulo}</h3>
+                                    <p>${previewContenido}...</p>
+                                    <span class="leer-mas">Leer más</span>
+                                </a>
+                            </div>
+                        `;
+                    }
+                    $('#cuerpo').html(cuerpoHTML);
+                });
             }
 
             // Función para verificar si el usuario llegó al final del contenido
@@ -61,17 +69,11 @@
                 }
             }
 
-            // Obtener las noticias de categoría 1 y mostrar las primeras noticias
-            $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                noticiasCategoria1 = data.filter(function (noticia) {
-                    return noticia.categoria === "1";
-                });
+            // Mostrar las primeras noticias
+            mostrarUltimasNoticias();
 
-                mostrarNoticias();
-
-                // Agregar el evento de desplazamiento para cargar más noticias
-                $(window).on('scroll', checkScroll);
-            });
+            // Agregar el evento de desplazamiento para cargar más noticias
+            $(window).on('scroll', checkScroll);
 
             // Obtener el footer
             $.ajax({
