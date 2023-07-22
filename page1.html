@@ -22,12 +22,13 @@
             // Función para mostrar las últimas 5 noticias de categoría 1 en la página 1
             function mostrarUltimasNoticias(categoriaSeleccionada, pagina) {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
                     var noticiasFiltradas = data.filter(noticia => noticia.categoria === categoriaSeleccionada);
+                    var numNoticias = noticiasFiltradas.length;
                     var noticiasPorPagina = 5;
-                    var inicio = (pagina - 1) * noticiasPorPagina;
+                    var numPaginas = Math.ceil(numNoticias / noticiasPorPagina);
+                    var inicio = (numPaginas - pagina) * noticiasPorPagina;
                     var fin = inicio + noticiasPorPagina;
-                    var noticiasPagina = noticiasFiltradas.slice(-fin, -inicio).reverse();
+                    var noticiasPagina = noticiasFiltradas.slice(inicio, fin).reverse();
                     var cuerpoHTML = '';
                     for (var i = noticiasPagina.length - 1; i >= 0; i--) {
                         var noticia = noticiasPagina[i];
@@ -44,15 +45,14 @@
                         `;
                     }
                     $('#cuerpo').html(cuerpoHTML);
-                    agregarBotonPaginacion(noticiasFiltradas.length, categoriaSeleccionada);
+                    agregarBotonPaginacion(numPaginas, categoriaSeleccionada);
                 });
             }
 
             mostrarUltimasNoticias("1", 1);
 
             // Función para agregar el botón de paginación
-            function agregarBotonPaginacion(totalNoticias, categoriaSeleccionada) {
-                var numPaginas = Math.ceil(totalNoticias / 5);
+            function agregarBotonPaginacion(numPaginas, categoriaSeleccionada) {
                 var paginacionHTML = '';
                 for (var i = 1; i <= numPaginas; i++) {
                     paginacionHTML += `<button class="btn-pagina">${i}</button>`;
