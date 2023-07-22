@@ -85,33 +85,33 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header').innerHTML = data;
-            });
 
-        // Obtener las últimas noticias desde el archivo JSON
-        fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
-            .then(response => response.json())
-            .then(data => {
-                // Filtrar las últimas 3 noticias y evitar duplicados
-                const ultimasNoticias = data.reverse().reduce((acc, noticia) => {
-                    if (!acc.some(item => item.titulo === noticia.titulo)) {
-                        acc.push(noticia);
-                    }
-                    return acc.length < 3 ? acc : acc.slice(0, 3);
-                }, []);
+                // Obtener las últimas noticias desde el archivo JSON
+                fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Filtrar las últimas 3 noticias y evitar duplicados
+                        const ultimasNoticias = data.reverse().reduce((acc, noticia) => {
+                            if (!acc.some(item => item.titulo === noticia.titulo)) {
+                                acc.push(noticia);
+                            }
+                            return acc.length < 3 ? acc : acc.slice(0, 3);
+                        }, []);
 
-                // Mostrar las noticias en el cuerpo
-                const noticiasContainer = document.getElementById('noticias');
-                ultimasNoticias.forEach(noticia => {
-                    const noticiaHTML = `
-                        <div class="noticia">
-                            <img class="imagen" src="${noticia.imagen}" alt="${noticia.titulo}">
-                            <h2>${noticia.titulo}</h2>
-                            <p class="contenido">${truncateText(noticia.contenido, 50)}</p>
-                            <a class="leer-mas" href="${noticia.enlace_noticia}" target="_blank">Leer más</a>
-                        </div>
-                    `;
-                    noticiasContainer.innerHTML += noticiaHTML;
-                });
+                        // Mostrar las noticias en el cuerpo
+                        const noticiasContainer = document.getElementById('noticias');
+                        ultimasNoticias.forEach(noticia => {
+                            const noticiaHTML = `
+                                <div class="noticia">
+                                    <img class="imagen" src="${noticia.imagen}" alt="${noticia.titulo}">
+                                    <h2>${noticia.titulo}</h2>
+                                    <p class="contenido">${truncateText(noticia.contenido, 50)}</p>
+                                    <a class="leer-mas" href="${noticia.enlace_noticia}" target="_blank">Leer más</a>
+                                </div>
+                            `;
+                            noticiasContainer.innerHTML += noticiaHTML;
+                        });
+                    });
             });
 
         // Obtener el footer desde GitHub
