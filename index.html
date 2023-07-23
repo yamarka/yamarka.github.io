@@ -8,50 +8,56 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el header');
-                }
-            });
-
             // Función para mostrar las últimas 3 noticias
             function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
-                    var ultimasNoticias = [];
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        var noticia = data[i];
-                        // Verificar si la noticia ya se agregó previamente
-                        if (!noticiasUnicas[noticia.titulo]) {
-                            noticiasUnicas[noticia.titulo] = true;
-                            ultimasNoticias.push(noticia);
-                        }
-                        if (ultimasNoticias.length >= 3) {
-                            break;
-                        }
-                    }
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
+                var noticias = []; // Array para almacenar las noticias de los tres enlaces
+
+                // Primer enlace
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/1/1.json', function (data) {
+                    noticias = noticias.concat(data); // Combinar las noticias del primer enlace
+                    checkNewsLoaded();
                 });
+
+                // Segundo enlace
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/2/2.json', function (data) {
+                    noticias = noticias.concat(data); // Combinar las noticias del segundo enlace
+                    checkNewsLoaded();
+                });
+
+                // Tercer enlace
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/3/3.json', function (data) {
+                    noticias = noticias.concat(data); // Combinar las noticias del tercer enlace
+                    checkNewsLoaded();
+                });
+
+                // Verificar si las noticias de los tres enlaces han sido cargadas
+                function checkNewsLoaded() {
+                    if (noticias.length >= 3) {
+                        // Ordenar las noticias por fecha en orden descendente
+                        noticias.sort(function (a, b) {
+                            return new Date(b.fecha) - new Date(a.fecha);
+                        });
+
+                        var ultimasNoticias = noticias.slice(0, 3); // Obtener las últimas 3 noticias
+
+                        var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
+                        for (var j = 0; j < ultimasNoticias.length; j++) {
+                            var noticia = ultimasNoticias[j];
+                            var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                            cuerpoHTML += `
+                                <div class="noticia">
+                                    <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                        <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                        <h3>${noticia.titulo}</h3>
+                                        <p>${previewContenido}...</p>
+                                        <span class="leer-mas">Leer más</span>
+                                    </a>
+                                </div>
+                            `;
+                        }
+                        $('#cuerpo').html(cuerpoHTML);
+                    }
+                }
             }
 
             mostrarUltimasNoticias();
