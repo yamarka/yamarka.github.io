@@ -3,84 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TecnoNewsUY - Ofertas</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <title>OFERTAS</title>
+    <!-- Obtener el header -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var noticiasCategoria3 = []; // Variable para almacenar todas las noticias de categoría 3
+            var noticiasMostradas = 0; // Número de noticias mostradas inicialmente
+            var noticiasPorPagina = 5; // Número de noticias por página
+
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#header').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el header');
+                }
+            });
+
+            // Función para mostrar las últimas 5 noticias para categoría 3
+            function mostrarUltimasNoticias() {
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                    noticiasCategoria3 = data.filter(function (noticia) {
+                        return noticia.categoria === "3";
+                    });
+
+                    // Invertir el arreglo para mostrar las noticias en orden inverso
+                    noticiasCategoria3.reverse();
+
+                    cargarMasNoticias(); // Mostrar las primeras noticias
+
+                    // Agregar el evento de desplazamiento para cargar más noticias
+                    $(window).on('scroll', checkScroll);
+                });
+            }
+
+            // Función para mostrar las noticias en función del número de noticias mostradas
+            function mostrarNoticias() {
+                var cuerpoHTML = '<h2 class="titulo-noticias">OFERTAS:</h2>';
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria3.length; j++) {
+                    var noticia = noticiasCategoria3[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    cuerpoHTML += `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                }
+                $('#cuerpo').append(cuerpoHTML);
+            }
+
+            // Función para verificar si el usuario llegó al final del contenido
+            function checkScroll() {
+                if ($(window).scrollTop() + $(window).height() >= $('#cuerpo').height()) {
+                    cargarMasNoticias();
+                }
+            }
+
+            // Función para cargar más noticias
+            function cargarMasNoticias() {
+                var final = noticiasMostradas + noticiasPorPagina;
+                for (var j = noticiasMostradas; j < final && j < noticiasCategoria3.length; j++) {
+                    var noticia = noticiasCategoria3[j];
+                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    var noticiaHTML = `
+                        <div class="noticia">
+                            <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                <h3>${noticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                    $('#cuerpo').append(noticiaHTML);
+                }
+
+                noticiasMostradas = final;
+
+                // Si se han mostrado todas las noticias, desactivar el evento de desplazamiento
+                if (noticiasMostradas >= noticiasCategoria3.length) {
+                    $(window).off('scroll', checkScroll);
+                
+                }
+            }
+
+            // Mostrar las primeras noticias
+            mostrarUltimasNoticias();
+
+            // Obtener el footer
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#footer').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el footer');
+                }
+            });
+        });
+    </script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            background-image: url("https://i.ibb.co/XZxn94m/white-abstract-background-backdrop-for-presentation-design-for-website-free-photo.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Estilos del header */
+        #header {
+            /* Estilos del header obtenidos desde GitHub */
+        }
+
+        /* Estilos del cuerpo y las noticias */
+        #cuerpo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .titulo-noticias {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .noticia {
+            width: 300px;
+            margin: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        .noticia:hover {
+            transform: translateY(-5px);
+        }
+
+        .imagen-noticia {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 10px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 1rem;
+            color: #777;
+            text-align: center;
+            padding: 0 15px;
+        }
+
+        .leer-mas {
+            display: block;
+            margin-top: 10px;
+            color: #007BFF;
+            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .leer-mas:hover {
+            color: #0056b3;
+        }
+
+        /* Estilos de los enlaces */
+        .enlace-noticia {
+            text-decoration: none;
+        }
+
+        /* Estilos del footer */
+        #footer {
+            /* Estilos del footer obtenidos desde GitHub */
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <h1 class="titulo-principal">TecnoNewsUY</h1>
-        <nav class="menu">
-            <a href="index.html">Inicio</a>
-            <a href="page1.html">Noticias</a>
-            <a href="page2.html">Última Hora</a>
-            <a href="page3.html">Ofertas</a>
-        </nav>
-    </header>
-    
-    <div class="container">
-        <h2 class="section-title">Ofertas</h2>
-
-        <section id="noticias-lista-3" class="noticias-lista" data-categoria="3">
-            <!-- Aquí se mostrarán las noticias de la categoría 3 -->
-        </section>
-    </div>
-    
-    <script src="script.js"></script>
-    <script>
-        fetch('https://raw.githubusercontent.com/TecnoNewsUY/TecnoNewsUY/master/todaslasnoticias/todaslasnoticias.json')
-            .then(response => response.json())
-            .then(data => {
-                const noticiasLista = document.getElementById('noticias-lista-3');
-                const noticiasCategoria3 = data.filter(noticia => noticia.categoria === "3");
-                mostrarNoticias(noticiasCategoria3, noticiasLista);
-                agregarEnlaces(noticiasCategoria3, noticiasLista);
-            })
-            .catch(error => console.log(error));
-
-        function mostrarNoticias(noticias, contenedor) {
-            contenedor.innerHTML = '';
-
-            noticias.forEach(noticia => {
-                const divNoticia = document.createElement('div');
-                divNoticia.classList.add('noticia');
-
-                const titulo = document.createElement('h3');
-                titulo.classList.add('noticia-titulo');
-                titulo.textContent = noticia.titulo;
-
-                const contenido = document.createElement('p');
-                contenido.textContent = noticia.contenido;
-
-                const imagen = document.createElement('img');
-                imagen.src = noticia.imagen;
-                imagen.alt = noticia.titulo;
-
-                const enlace = document.createElement('a');
-                enlace.href = noticia.enlace_noticia;
-                enlace.textContent = 'Leer más';
-
-                divNoticia.appendChild(titulo);
-                divNoticia.appendChild(imagen);
-                divNoticia.appendChild(contenido);
-                divNoticia.appendChild(enlace);
-
-                contenedor.appendChild(divNoticia);
-            });
-        }
-
-        function agregarEnlaces(noticias, contenedor) {
-            const titulosNoticias = contenedor.querySelectorAll('.noticia-titulo');
-
-            titulosNoticias.forEach(tituloNoticia => {
-                const enlace = document.createElement('a');
-                enlace.href = noticias.find(noticia => noticia.titulo === tituloNoticia.innerText).enlace_noticia;
-                enlace.innerText = tituloNoticia.innerText;
-
-                tituloNoticia.innerHTML = '';
-                tituloNoticia.appendChild(enlace);
-            });
-        }
-    </script>
+    <div id="header"></div>
+    <div id="cuerpo"></div>
+    <div id="footer"></div>
 </body>
+<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
