@@ -31,60 +31,71 @@
       margin-top: 5px;
     }
 
-    .group-people {
-      position: relative;
-      width: 200px;
-      height: 120px;
+    .character {
+      width: 150px;
+      height: 200px;
       margin: 40px auto;
-      animation: moveGroup 2s linear infinite;
+      position: relative;
     }
 
-    .person {
-      width: 50px;
-      height: 80px;
-      background-color: #6c757d;
-      position: absolute;
-      bottom: 0;
-      left: calc(50% - 100px);
-      border-radius: 50px 50px 0 0;
-    }
-
-    .person::before {
-      content: '';
-      width: 25px;
-      height: 25px;
-      background-color: #f1c40f;
+    .character .head {
+      width: 100px;
+      height: 100px;
+      background-color: #ffcc66;
       border-radius: 50%;
       position: absolute;
-      top: -25px;
-      left: 12.5px;
-    }
-
-    .person .newspaper {
-      width: 30px;
-      height: 50px;
-      background-color: #fff;
-      border: 5px solid #000;
-      border-radius: 5px;
-      position: absolute;
-      top: 5px;
+      top: 0;
       left: 50%;
-      margin-left: -15px;
+      margin-left: -50px;
+      border: 3px solid #f2ac5a;
     }
 
-    .person .newspaper::before,
-    .person .newspaper::after {
-      content: 'YÄMÄRKÄ';
-      font-size: 5px;
-      color: #000;
+    .character .eyes {
+      width: 10px;
+      height: 15px;
+      background-color: #000;
+      border-radius: 50%;
       position: absolute;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 35px;
     }
 
-    .person .newspaper::after {
+    .character .eye-left {
+      left: 20px;
+    }
+
+    .character .eye-right {
+      right: 20px;
+    }
+
+    .character .body {
+      width: 80px;
+      height: 100px;
+      background-color: #ffcc66;
+      border: 3px solid #f2ac5a;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      margin-left: -40px;
+    }
+
+    .character .shirt {
+      width: 120px;
+      height: 60px;
+      background-color: #e60012;
+      position: absolute;
+      top: 160px;
+      left: 50%;
+      margin-left: -60px;
+      border: 3px solid #b5000d;
+    }
+
+    .character .shirt .text {
+      font-size: 1rem;
+      color: #fff;
+      position: absolute;
       top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .message {
@@ -109,15 +120,6 @@
       color: #fff;
     }
 
-    @keyframes moveGroup {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-    }
-
     /* Estilos adicionales para dispositivos móviles */
     @media (max-width: 600px) {
       .title {
@@ -126,30 +128,44 @@
       .subtitle {
         font-size: 1.2rem;
       }
-      .group-people {
-        width: 150px;
-        height: 90px;
+      .character {
+        width: 120px;
+        height: 160px;
       }
-      .person {
-        width: 40px;
-        height: 64px;
-      }
-      .person::before {
-        width: 20px;
-        height: 20px;
-        top: -20px;
-        left: 10px;
-      }
-      .person .newspaper {
-        width: 24px;
-        height: 40px;
-        top: 4px;
+      .character .head {
+        width: 80px;
+        height: 80px;
+        top: 0;
         left: 50%;
-        margin-left: -12px;
+        margin-left: -40px;
       }
-      .person .newspaper::before,
-      .person .newspaper::after {
-        font-size: 3px;
+      .character .eyes {
+        width: 6px;
+        height: 9px;
+        top: 26px;
+      }
+      .character .eye-left {
+        left: 16px;
+      }
+      .character .eye-right {
+        right: 16px;
+      }
+      .character .body {
+        width: 60px;
+        height: 80px;
+        top: 80px;
+        left: 50%;
+        margin-left: -30px;
+      }
+      .character .shirt {
+        width: 90px;
+        height: 45px;
+        top: 120px;
+        left: 50%;
+        margin-left: -45px;
+      }
+      .character .shirt .text {
+        font-size: 0.9rem;
       }
       .message {
         font-size: 1rem;
@@ -164,15 +180,14 @@
   <div class="container">
     <h1 class="title">¡Error 404!</h1>
     <p class="subtitle">Página no encontrada</p>
-    <div class="group-people">
-      <div class="person">
-        <div class="newspaper"></div>
+    <div class="character">
+      <div class="head">
+        <div class="eyes eye-left"></div>
+        <div class="eyes eye-right"></div>
       </div>
-      <div class="person" style="left: 60px;">
-        <div class="newspaper"></div>
-      </div>
-      <div class="person" style="left: 120px;">
-        <div class="newspaper"></div>
+      <div class="body"></div>
+      <div class="shirt">
+        <div class="text">YÄMÄRKÄ</div>
       </div>
     </div>
     <p class="message">¡Ups! Parece que la página que buscas no existe.</p>
