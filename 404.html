@@ -31,62 +31,82 @@
       margin-top: 5px;
     }
 
-    .astronaut {
+    .person {
       width: 200px;
       height: 300px;
       background-color: #6c757d;
       position: relative;
       border-radius: 100px;
       margin: 40px auto;
-      animation: floatAstronaut 2s ease-in-out infinite;
+      animation: rotatePerson 5s linear infinite, readNewspaper 2s linear alternate infinite;
     }
 
-    .astronaut .head {
+    .person .head {
       width: 100px;
       height: 100px;
       background-color: #f1c40f;
       border-radius: 50%;
       position: absolute;
-      top: 0;
+      top: 10px;
       left: 50%;
       margin-left: -50px;
     }
 
-    .astronaut .head .eyes {
+    .person .head .eyes {
       display: flex;
       justify-content: space-around;
       margin-top: 40px;
     }
 
-    .astronaut .head .eyes .eye {
+    .person .head .eyes .eye {
       width: 15px;
       height: 25px;
       background-color: #000;
       border-radius: 50%;
     }
 
-    .astronaut .body {
-      width: 100px;
-      height: 100px;
+    .person .body {
+      width: 80px;
+      height: 120px;
       background-color: #f1c40f;
-      border-radius: 50%;
+      border-radius: 10px;
       position: absolute;
       top: 100px;
       left: 50%;
-      margin-left: -50px;
+      margin-left: -40px;
     }
 
-    .astronaut .legs {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 60px;
-    }
-
-    .astronaut .legs .leg {
-      width: 30px;
-      height: 100px;
+    .person .hand-left,
+    .person .hand-right {
+      width: 25px;
+      height: 60px;
       background-color: #f1c40f;
       border-radius: 10px;
+      position: absolute;
+      top: 120px;
+    }
+
+    .person .hand-left {
+      left: 10px;
+      transform: rotate(40deg);
+    }
+
+    .person .hand-right {
+      right: 10px;
+      transform: rotate(-40deg);
+    }
+
+    .person .newspaper {
+      width: 120px;
+      height: 150px;
+      background-color: #fff;
+      border-radius: 10px;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      margin-left: -60px;
+      transform-origin: 50% 0%;
+      animation: newspaperMotion 1s linear alternate infinite;
     }
 
     .message {
@@ -111,12 +131,30 @@
       color: #fff;
     }
 
-    @keyframes floatAstronaut {
+    @keyframes rotatePerson {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes readNewspaper {
       0%, 100% {
         transform: translateY(0);
       }
       50% {
         transform: translateY(-10px);
+      }
+    }
+
+    @keyframes newspaperMotion {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(10deg);
       }
     }
 
@@ -128,26 +166,34 @@
       .subtitle {
         font-size: 1.2rem;
       }
-      .astronaut {
+      .person {
         width: 150px;
         height: 225px;
       }
-      .astronaut .head {
+      .person .head {
         width: 75px;
         height: 75px;
       }
-      .astronaut .head .eyes .eye {
+      .person .head .eyes .eye {
         width: 10px;
         height: 18px;
       }
-      .astronaut .body {
-        width: 75px;
-        height: 75px;
+      .person .body {
+        width: 60px;
+        height: 90px;
         top: 75px;
       }
-      .astronaut .legs .leg {
-        width: 20px;
-        height: 70px;
+      .person .hand-left,
+      .person .hand-right {
+        width: 18px;
+        height: 45px;
+      }
+      .person .newspaper {
+        width: 80px;
+        height: 100px;
+        top: 75px;
+        left: 50%;
+        margin-left: -40px;
       }
       .message {
         font-size: 1rem;
@@ -162,7 +208,7 @@
   <div class="container">
     <h1 class="title">¡Error 404!</h1>
     <p class="subtitle">Página no encontrada</p>
-    <div class="astronaut">
+    <div class="person">
       <div class="head">
         <div class="eyes">
           <div class="eye"></div>
@@ -170,28 +216,13 @@
         </div>
       </div>
       <div class="body"></div>
-      <div class="legs">
-        <div class="leg"></div>
-        <div class="leg"></div>
-      </div>
+      <div class="hand-left"></div>
+      <div class="hand-right"></div>
+      <div class="newspaper"></div>
     </div>
     <p class="message">¡Ups! Parece que la página que buscas no existe.</p>
     <a class="home-link" href="/">Volver a la página de inicio</a>
   </div>
-  <script>
-    // Código para la animación de los ojos del astronauta
-    const eyes = document.querySelectorAll('.eye');
-
-    document.addEventListener('mousemove', function(event) {
-      const x = (event.clientX * 100) / window.innerWidth + '%';
-      const y = (event.clientY * 100) / window.innerHeight + '%';
-
-      eyes.forEach(eye => {
-        eye.style.left = x;
-        eye.style.top = y;
-        eye.style.transform = 'translate(-' + x + ',-' + y + ')';
-      });
-    });
-  </script>
 </body>
 </html>
+
