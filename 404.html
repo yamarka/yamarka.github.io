@@ -31,82 +31,60 @@
       margin-top: 5px;
     }
 
-    .person {
-      width: 200px;
-      height: 300px;
-      background-color: #6c757d;
+    .group-people {
       position: relative;
-      border-radius: 100px;
-      margin: 40px auto;
-      animation: rotatePerson 5s linear infinite, readNewspaper 2s linear alternate infinite;
-    }
-
-    .person .head {
-      width: 100px;
-      height: 100px;
-      background-color: #f1c40f;
-      border-radius: 50%;
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      margin-left: -50px;
-    }
-
-    .person .head .eyes {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 40px;
-    }
-
-    .person .head .eyes .eye {
-      width: 15px;
-      height: 25px;
-      background-color: #000;
-      border-radius: 50%;
-    }
-
-    .person .body {
-      width: 80px;
+      width: 200px;
       height: 120px;
-      background-color: #f1c40f;
-      border-radius: 10px;
-      position: absolute;
-      top: 100px;
-      left: 50%;
-      margin-left: -40px;
+      margin: 40px auto;
+      animation: moveGroup 2s linear infinite;
     }
 
-    .person .hand-left,
-    .person .hand-right {
+    .person {
+      width: 50px;
+      height: 80px;
+      background-color: #6c757d;
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 100px);
+      border-radius: 50px 50px 0 0;
+    }
+
+    .person::before {
+      content: '';
       width: 25px;
-      height: 60px;
+      height: 25px;
       background-color: #f1c40f;
-      border-radius: 10px;
+      border-radius: 50%;
       position: absolute;
-      top: 120px;
-    }
-
-    .person .hand-left {
-      left: 10px;
-      transform: rotate(40deg);
-    }
-
-    .person .hand-right {
-      right: 10px;
-      transform: rotate(-40deg);
+      top: -25px;
+      left: 12.5px;
     }
 
     .person .newspaper {
-      width: 120px;
-      height: 150px;
+      width: 30px;
+      height: 50px;
       background-color: #fff;
-      border-radius: 10px;
+      border: 5px solid #000;
+      border-radius: 5px;
       position: absolute;
-      top: 100px;
+      top: 5px;
       left: 50%;
-      margin-left: -60px;
-      transform-origin: 50% 0%;
-      animation: newspaperMotion 1s linear alternate infinite;
+      margin-left: -15px;
+    }
+
+    .person .newspaper::before,
+    .person .newspaper::after {
+      content: 'YÄMÄRKÄ';
+      font-size: 5px;
+      color: #000;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .person .newspaper::after {
+      top: 50%;
     }
 
     .message {
@@ -131,30 +109,12 @@
       color: #fff;
     }
 
-    @keyframes rotatePerson {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes readNewspaper {
+    @keyframes moveGroup {
       0%, 100% {
         transform: translateY(0);
       }
       50% {
         transform: translateY(-10px);
-      }
-    }
-
-    @keyframes newspaperMotion {
-      0%, 100% {
-        transform: rotate(0deg);
-      }
-      50% {
-        transform: rotate(10deg);
       }
     }
 
@@ -166,34 +126,30 @@
       .subtitle {
         font-size: 1.2rem;
       }
-      .person {
+      .group-people {
         width: 150px;
-        height: 225px;
-      }
-      .person .head {
-        width: 75px;
-        height: 75px;
-      }
-      .person .head .eyes .eye {
-        width: 10px;
-        height: 18px;
-      }
-      .person .body {
-        width: 60px;
         height: 90px;
-        top: 75px;
       }
-      .person .hand-left,
-      .person .hand-right {
-        width: 18px;
-        height: 45px;
+      .person {
+        width: 40px;
+        height: 64px;
+      }
+      .person::before {
+        width: 20px;
+        height: 20px;
+        top: -20px;
+        left: 10px;
       }
       .person .newspaper {
-        width: 80px;
-        height: 100px;
-        top: 75px;
+        width: 24px;
+        height: 40px;
+        top: 4px;
         left: 50%;
-        margin-left: -40px;
+        margin-left: -12px;
+      }
+      .person .newspaper::before,
+      .person .newspaper::after {
+        font-size: 3px;
       }
       .message {
         font-size: 1rem;
@@ -208,21 +164,19 @@
   <div class="container">
     <h1 class="title">¡Error 404!</h1>
     <p class="subtitle">Página no encontrada</p>
-    <div class="person">
-      <div class="head">
-        <div class="eyes">
-          <div class="eye"></div>
-          <div class="eye"></div>
-        </div>
+    <div class="group-people">
+      <div class="person">
+        <div class="newspaper"></div>
       </div>
-      <div class="body"></div>
-      <div class="hand-left"></div>
-      <div class="hand-right"></div>
-      <div class="newspaper"></div>
+      <div class="person" style="left: 60px;">
+        <div class="newspaper"></div>
+      </div>
+      <div class="person" style="left: 120px;">
+        <div class="newspaper"></div>
+      </div>
     </div>
     <p class="message">¡Ups! Parece que la página que buscas no existe.</p>
     <a class="home-link" href="/">Volver a la página de inicio</a>
   </div>
 </body>
 </html>
-
