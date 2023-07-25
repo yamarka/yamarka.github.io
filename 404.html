@@ -3,139 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 - No Encontrado</title>
+  <title>Error 404 - Página no encontrada</title>
   <style>
     body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
       margin: 0;
-      overflow: hidden;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #111;
     }
-
-    .planet-container {
-      position: relative;
-      width: 100vmin;
-      height: 100vmin;
-      animation: spin 20s linear infinite;
+    .container {
+      max-width: 400px;
     }
-
-    .planet {
-      position: absolute;
-      bottom: 25%;
-      left: 50%;
-      transform: translate(-50%, 50%);
-      width: 30vmin;
-      height: 30vmin;
-      border-radius: 50%;
-      background-color: #0a8d00;
+    .error-text {
+      font-size: 48px;
+      color: #ff5252;
+      letter-spacing: 3px;
+      animation: glitch 2s linear infinite;
     }
-
-    .continent {
-      position: absolute;
-      width: 30vmin;
-      height: 30vmin;
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Globe.svg/1200px-Globe.svg.png');
+    .error-desc {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+    .animated-bg {
+      background-image: url('https://i.imgur.com/YyWlTIm.png');
       background-size: cover;
-      clip-path: circle(15vmin at center);
+      background-position: center;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
     }
-
-    .moon {
-      position: absolute;
-      bottom: 45%;
-      left: 75%;
-      transform: translate(-50%, 50%);
-      width: 10vmin;
-      height: 10vmin;
-      border-radius: 50%;
-      background-color: #aaa;
-      animation: spin-reverse 10s linear infinite;
+    .animated-text {
+      font-size: 60px;
+      font-weight: bold;
+      color: transparent;
+      background-image: linear-gradient(110deg, #ff5252, #33b5e5, #1aff1a, #ff5252);
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: animateText 8s linear infinite;
     }
-
-    .star {
-      position: absolute;
-      width: 1vmin;
-      height: 1vmin;
-      background-color: #fff;
-      animation: twinkle 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: translate(-50%, 50%) rotate(0deg);
+    @keyframes glitch {
+      0%, 20%, 40%, 60%, 80% {
+        transform: translateX(0);
       }
-      100% {
-        transform: translate(-50%, 50%) rotate(360deg);
-      }
-    }
-
-    @keyframes spin-reverse {
-      0% {
-        transform: translate(-50%, 50%) rotate(0deg);
-      }
-      100% {
-        transform: translate(-50%, 50%) rotate(-360deg);
-      }
-    }
-
-    @keyframes twinkle {
-      0% {
-        opacity: 0;
+      25% {
+        transform: translateX(-5px) rotate(-2deg);
       }
       50% {
-        opacity: 1;
+        transform: translateX(5px) rotate(2deg);
+      }
+      75% {
+        transform: translateX(-5px) rotate(-2deg);
       }
       100% {
-        opacity: 0;
+        transform: translateX(5px) rotate(2deg);
       }
     }
-
-    /* Estilos adicionales para dispositivos móviles */
-    @media only screen and (max-width: 600px) {
-      .planet-container {
-        width: 80vmin;
-        height: 80vmin;
+    @keyframes animateText {
+      0%, 100% {
+        background-position: 0 0;
       }
-
-      .planet {
-        width: 20vmin;
-        height: 20vmin;
+      25% {
+        background-position: 400% 0;
       }
-
-      .continent {
-        width: 20vmin;
-        height: 20vmin;
-        clip-path: circle(10vmin at center);
+      50% {
+        background-position: 300% 0;
       }
-
-      .moon {
-        width: 6vmin;
-        height: 6vmin;
-      }
-
-      .star {
-        width: 0.8vmin;
-        height: 0.8vmin;
+      75% {
+        background-position: 200% 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="planet-container">
-    <div class="planet">
-      <div class="continent"></div>
+  <div class="container">
+    <div class="animated-bg">
+      <h1 class="animated-text">404</h1>
     </div>
-    <div class="moon"></div>
-    <div class="star" style="top: 10vmin; left: 16vmin;"></div>
-    <div class="star" style="top: 30vmin; left: 6vmin;"></div>
-    <div class="star" style="top: 24vmin; left: 38vmin;"></div>
-  </div>
-  <div style="text-align: center; margin-top: 20px;">
-    <h1 style="font-size: 6vmin;">404 - No Encontrado</h1>
-    <p style="font-size: 4vmin;">¡Ups! La página que buscas no existe.</p>
-    <p style="font-size: 4vmin;">Por favor, verifica la URL o regresa a la <a href="/">página de inicio</a>.</p>
+    <div class="error-text">¡Oops!</div>
+    <div class="error-desc">La página que buscas no ha sido encontrada.</div>
+    <div class="error-desc">Por favor, verifica la URL o regresa a la página de inicio.</div>
   </div>
 </body>
 </html>
