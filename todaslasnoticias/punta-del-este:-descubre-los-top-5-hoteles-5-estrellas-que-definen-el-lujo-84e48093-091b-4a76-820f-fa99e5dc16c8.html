@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punta del Este: Descubre los Top 5 Hoteles 5 Estrellas que Definen el Lujo</title>
+    <style>
+        /* ... Estilos CSS previos ... */
+        .noticia-completa {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .noticia-completa h2 {
+            font-size: 32px;
+            color: #3366cc;
+            font-family: 'Anton', sans-serif;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .noticia-completa img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            margin-bottom: 20px;
+            float: left; /* Colocar la imagen a la izquierda */
+            cursor: pointer; /* Cambiar el cursor al hacer clic en la imagen */
+        }
+        .noticia-completa .texto-contenedor {
+            overflow: hidden; /* Asegurar que el texto fluya alrededor de la imagen */
+        }
+        .noticia-completa .texto-contenedor p {
+            font-family: 'Work Sans', sans-serif;
+            margin: 0;
+            text-align: justify; /* Justificar el texto */
+        }
+        /* Estilos CSS para dispositivos móviles */
+        @media (max-width: 768px) {
+            .noticia-completa img {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+        /* Estilos para el modal de la imagen */
+        .modal {
+            display: none; /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo semi-transparente */
+        }
+        .modal-contenido {
+            display: block;
+            margin: auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        .modal-imagen {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        // Agregar evento click a la imagen para mostrar el modal
+        function mostrarModalImagen(enlace_imagen) {
+            var modal = document.getElementById('modal');
+            var modalImagen = document.getElementById('modal-imagen');
+            modalImagen.src = enlace_imagen;
+            modal.style.display = 'block';
+
+            // Agregar evento click al modal para ocultarlo al hacer clic fuera de la imagen
+            modal.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <!-- Reemplazar el header estático por el header dinámico -->
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TYÄMÄRKÄ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shantell+Sans&family=Slackey&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos comunes para PC y dispositivos móviles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .logo {
+            max-height: 50px;
+            max-width: 100%;
+            margin-right: 10px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 0;
+            margin-bottom: 0;
+            flex-grow: 1;
+            margin-right: 20%;
+        }
+
+        .menu a {
+            display: block;
+            padding: 5px 10px;
+            color: #000;
+            background-color: transparent;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-family: 'Slackey', cursive;
+            text-transform: uppercase;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #6F273F;
+            color: #fff;
+        }
+
+        .menu a {
+            flex: 1;
+        }
+
+        /* Estilos para PC */
+        @media only screen and (min-width: 601px) {
+            header {
+                background-color: #FFAC06;
+                padding: 10px 20px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                align-items: center;
+            }
+
+            .logo-title-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo {
+                margin-right: 10px;
+            }
+
+            h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 24px;
+                margin-right: 10px;
+            }
+
+            .menu {
+                flex-grow: 2;
+            }
+
+            .movil-header {
+                display: none;
+            }
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                display: none;
+            }
+
+            .movil-header {
+                background-color: #FFAC06;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .movil-menu-toggle {
+                font-size: 24px;
+                cursor: pointer;
+                order: 1; /* Cambiamos el orden del símbolo del menú */
+            }
+
+            .movil-logo {
+                max-height: 40px;
+                max-width: 100%;
+                margin-right: 10px;
+                order: 2; /* Cambiamos el orden del logo */
+            }
+
+            .movil-h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 18px;
+                margin-right: 10px;
+                order: 3; /* Cambiamos el orden del título */
+            }
+
+            .movil-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #FFAC06;
+                z-index: 1;
+            }
+
+            .movil-menu a {
+                margin: 5px 0;
+            }
+
+            .movil-menu.show-menu {
+                display: flex;
+            }
+
+            .movil-menu a {
+                display: block;
+                padding: 5px 10px;
+                color: #fff;
+                background-color: transparent;
+                text-align: center;
+                text-decoration: none;
+                font-size: 14px;
+                font-family: 'Slackey', cursive;
+                text-transform: uppercase;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .movil-menu a:hover {
+                background-color: #6F273F;
+            }
+
+            .movil-menu a {
+                flex: 1;
+            }
+
+            /* Estilos para el contenedor del menú móvil */
+            .movil-header {
+                position: relative;
+            }
+        }
+    </style>
+    <script>
+        // Función para mostrar/ocultar el menú en dispositivos móviles
+        function toggleMenu() {
+            var movilMenu = document.querySelector('.movil-menu');
+            movilMenu.classList.toggle('show-menu');
+            var toggleButton = document.querySelector('.movil-menu-toggle');
+            var isExpanded = toggleButton.getAttribute('aria-expanded') === 'true' || false;
+            toggleButton.setAttribute('aria-expanded', !isExpanded);
+        }
+    </script>
+</head>
+<body>
+    <!-- Header para PC -->
+    <header>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo YÄMÄRKÄ">
+            </a>
+            <h1 class="titulo-principal">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/page1.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/page2.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/page3.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+
+    <!-- Header para dispositivos móviles -->
+    <header class="movil-header">
+        <!-- Símbolo "☰" para abrir el menú -->
+        <span class="movil-menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="movil-menu">&#9776;</span>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="movil-logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo ">
+            </a>
+            <h1 class="movil-h1">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="movil-menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/page1.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/page2.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/page3.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+</body>
+</html>
+
+
+    <!-- Modal para mostrar la imagen en pantalla completa -->
+    <div id="modal" class="modal">
+        <span class="modal-contenido">
+            <img id="modal-imagen" class="modal-imagen" alt="Punta del Este: Descubre los Top 5 Hoteles 5 Estrellas que Definen el Lujo">
+        </span>
+    </div>
+
+    <section class="noticia-completa">
+        <h2>Punta del Este: Descubre los Top 5 Hoteles 5 Estrellas que Definen el Lujo</h2>
+        <div class="texto-contenedor">
+            <img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg" alt="Punta del Este: Descubre los Top 5 Hoteles 5 Estrellas que Definen el Lujo" id="Punta-del-Este:-Descubre-los-Top-5-Hoteles-5-Estrellas-que-Definen-el-Lujo" onclick="mostrarModalImagen('https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg')">
+            <p>Punta del Este, conocido como el balneario más exclusivo de América del Sur, ofrece una experiencia vacacional sin igual, y parte fundamental de esta experiencia es la estadía en sus lujosos hoteles 5 estrellas. A continuación, te presentamos los cinco mejores hoteles de la región, ordenados de mayor a menor por sus lujos.
+
+**5. Hotel Amanoá**:
+Ubicado en la paradisíaca Playa Brava, el Hotel Amanoá es un oasis de elegancia y sofisticación. Sus espaciosas habitaciones, decoradas con toques naturales, ofrecen impresionantes vistas al océano. Este hotel boutique presume de un servicio personalizado, brindando a sus huéspedes atención única y atenta en todo momento. Su spa de clase mundial es un refugio para el bienestar, donde masajes y tratamientos de relajación son realizados por terapeutas altamente capacitados. Además, cuenta con una piscina climatizada al aire libre y un exquisito restaurante que ofrece delicias gourmet con productos frescos de la región.
+
+**4. The Grand Tower Hotel**:
+Con su emblemática torre que se alza sobre la península, The Grand Tower Hotel es un ícono de la elegancia en Punta del Este. Sus habitaciones, espaciosas y lujosas, cuentan con detalles de diseño exquisitos y modernas comodidades. El hotel cuenta con un club de playa privado, donde los huéspedes pueden disfrutar del sol y las aguas cristalinas del Atlántico en total privacidad. Además, su restaurante gourmet ofrece una experiencia culinaria de primer nivel, fusionando lo mejor de la cocina local e internacional. Para aquellos que buscan relajarse, el spa ofrece tratamientos rejuvenecedores y una piscina interior climatizada con vista panorámica a la ciudad.
+
+**3. Serena Luxury Hotel & Spa**:
+Ubicado en La Barra, Serena Luxury Hotel & Spa es un destino ideal para quienes buscan un ambiente íntimo y exclusivo. Sus suites de lujo, decoradas con toques contemporáneos, ofrecen espectaculares vistas al océano y a la puesta de sol. El hotel cuenta con una piscina al aire libre rodeada de exuberantes jardines, donde los huéspedes pueden disfrutar de la tranquilidad y la privacidad. El spa del hotel es un santuario de bienestar, ofreciendo una amplia gama de tratamientos para rejuvenecer cuerpo y mente. El restaurante del Serena deleita a sus comensales con una fusión de sabores mediterráneos y locales, creando una experiencia gastronómica única en la región.
+
+**2. Enjoy Punta del Este Resort & Casino**:
+Situado frente a la playa de La Mansa, Enjoy Punta del Este Resort & Casino es un paraíso de entretenimiento y lujo. Sus amplias habitaciones y suites están elegantemente decoradas y ofrecen vistas impresionantes al océano y al paisaje circundante. El resort cuenta con una variada oferta gastronómica, con diversos restaurantes que satisfacen todos los gustos, desde la cocina gourmet hasta platos internacionales. Su casino de clase mundial ofrece diversión y emoción las 24 horas del día, con una amplia selección de juegos y espectáculos en vivo. También cuenta con un spa de primer nivel que ofrece tratamientos relajantes y una piscina al aire libre con vista panorámica al mar.
+
+**1. The Grand Punta del Este Hotel**:
+En lo más alto de nuestra lista se encuentra The Grand Punta del Este Hotel, un símbolo de lujo y exclusividad en la región. Ubicado en una ubicación privilegiada frente al mar, sus suites son un refugio de elegancia y confort. El hotel cuenta con una piscina infinita en la azotea, donde los huéspedes pueden disfrutar de vistas panorámicas de Punta del Este y el océano. Su spa es un santuario de bienestar y relajación, ofreciendo tratamientos de lujo que utilizan productos naturales y técnicas exclusivas. El restaurante del hotel ofrece una experiencia culinaria excepcional, destacando los sabores locales y los ingredientes frescos. Además, el servicio personalizado y atento brinda a los huéspedes una experiencia inolvidable.
+
+En resumen, estos cinco hoteles 5 estrellas de Punta del Este encarnan el lujo, la sofisticación y la exclusividad, ofreciendo a sus huéspedes una experiencia vacacional incomparable. Cada uno de ellos es un oasis de comodidad y elegancia, garantizando una estadía inolvidable en este increíble balneario sudamericano.</p>
+        </div>
+        <p class="fecha">Fecha: 25/07/2023</p>
+    </section>
+
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <style>
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <p>&copy; <span id="current-year"></span> YÄMÄRKÄ. Todos los derechos reservados.</p>
+
+        <script>
+            // JavaScript para obtener el año actual y mostrarlo en el pie de página
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+</html>
+
+</body>
+</html>
