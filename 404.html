@@ -6,61 +6,68 @@
   <title>404 - No Encontrado</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
-      color: #fff;
+      margin: 0;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
-      overflow: hidden;
+      background-color: #111;
     }
 
     .planet-container {
       position: relative;
-      width: 200px;
-      height: 200px;
+      width: 100vmin;
+      height: 100vmin;
+      animation: spin 20s linear infinite;
     }
 
     .planet {
       position: absolute;
-      bottom: 0;
+      bottom: 25%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 100px;
+      transform: translate(-50%, 50%);
+      width: 30vmin;
+      height: 30vmin;
       border-radius: 50%;
-      background-color: #3763eb;
-      animation: spin 8s linear infinite;
+      background-color: #0a8d00;
+    }
+
+    .continent {
+      position: absolute;
+      width: 30vmin;
+      height: 30vmin;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Globe.svg/1200px-Globe.svg.png');
+      background-size: cover;
+      clip-path: circle(15vmin at center);
     }
 
     .moon {
       position: absolute;
-      bottom: 50%;
+      bottom: 45%;
       left: 75%;
       transform: translate(-50%, 50%);
-      width: 30px;
-      height: 30px;
+      width: 10vmin;
+      height: 10vmin;
       border-radius: 50%;
       background-color: #aaa;
-      animation: spin-reverse 4s linear infinite;
+      animation: spin-reverse 10s linear infinite;
     }
 
     .star {
       position: absolute;
-      width: 3px;
-      height: 3px;
+      width: 1vmin;
+      height: 1vmin;
       background-color: #fff;
       animation: twinkle 1s linear infinite;
     }
 
     @keyframes spin {
       0% {
-        transform: translateX(-50%) rotate(0deg);
+        transform: translate(-50%, 50%) rotate(0deg);
       }
       100% {
-        transform: translateX(-50%) rotate(360deg);
+        transform: translate(-50%, 50%) rotate(360deg);
       }
     }
 
@@ -84,20 +91,51 @@
         opacity: 0;
       }
     }
+
+    /* Estilos adicionales para dispositivos móviles */
+    @media only screen and (max-width: 600px) {
+      .planet-container {
+        width: 80vmin;
+        height: 80vmin;
+      }
+
+      .planet {
+        width: 20vmin;
+        height: 20vmin;
+      }
+
+      .continent {
+        width: 20vmin;
+        height: 20vmin;
+        clip-path: circle(10vmin at center);
+      }
+
+      .moon {
+        width: 6vmin;
+        height: 6vmin;
+      }
+
+      .star {
+        width: 0.8vmin;
+        height: 0.8vmin;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="planet-container">
-    <div class="planet"></div>
+    <div class="planet">
+      <div class="continent"></div>
+    </div>
     <div class="moon"></div>
-    <div class="star" style="top: 50px; left: 80px;"></div>
-    <div class="star" style="top: 150px; left: 30px;"></div>
-    <div class="star" style="top: 120px; left: 150px;"></div>
+    <div class="star" style="top: 10vmin; left: 16vmin;"></div>
+    <div class="star" style="top: 30vmin; left: 6vmin;"></div>
+    <div class="star" style="top: 24vmin; left: 38vmin;"></div>
   </div>
   <div style="text-align: center; margin-top: 20px;">
-    <h1 style="font-size: 36px;">404 - No Encontrado</h1>
-    <p style="font-size: 24px;">¡Ups! La página que buscas no existe.</p>
-    <p style="font-size: 24px;">Por favor, verifica la URL o regresa a la <a href="/">página de inicio</a>.</p>
+    <h1 style="font-size: 6vmin;">404 - No Encontrado</h1>
+    <p style="font-size: 4vmin;">¡Ups! La página que buscas no existe.</p>
+    <p style="font-size: 4vmin;">Por favor, verifica la URL o regresa a la <a href="/">página de inicio</a>.</p>
   </div>
 </body>
 </html>
