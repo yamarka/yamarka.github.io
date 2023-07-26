@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 100 datos sorprendentes sobre Uruguay</title>
+    <!-- Agregar etiqueta link para el Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <style>
+        /* ... Estilos CSS previos ... */
+        .noticia-completa {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .noticia-completa h2 {
+            font-size: 32px;
+            color: #3366cc;
+            font-family: 'Anton', sans-serif;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .noticia-completa img {
+            width: 300px;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            margin-bottom: 20px;
+            float: left; /* Colocar la imagen a la izquierda */
+            cursor: pointer; /* Cambiar el cursor al hacer clic en la imagen */
+        }
+        .noticia-completa .texto-contenedor {
+            overflow: hidden; /* Asegurar que el texto fluya alrededor de la imagen */
+        }
+        .noticia-completa .texto-contenedor p {
+            font-family: 'Work Sans', sans-serif;
+            margin: 0;
+            text-align: justify; /* Justificar el texto */
+    
+        }
+
+        .noticia-completa strong {
+        display: block; /* Hacer que las etiquetas <strong> ocupen todo el ancho disponible */
+        margin: 1em 0; /* Ajustar el interlineado antes y después de las etiquetas <strong> */
+        font-weight: bold; /* Resaltar el texto en negrita */
+        }
+        /* Estilos CSS para dispositivos móviles */
+        @media (max-width: 768px) {
+            .noticia-completa img {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+        /* Estilos para el modal de la imagen */
+        .modal {
+            display: none; /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fondo semi-transparente */
+        }
+        .modal-contenido {
+            display: block;
+            margin: auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        .modal-imagen {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        // Agregar evento click a la imagen para mostrar el modal
+        function mostrarModalImagen(enlace_imagen) {
+            var modal = document.getElementById('modal');
+            var modalImagen = document.getElementById('modal-imagen');
+            modalImagen.src = enlace_imagen;
+            modal.style.display = 'block';
+
+            // Agregar evento click al modal para ocultarlo al hacer clic fuera de la imagen
+            modal.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <!-- Reemplazar el header estático por el header dinámico -->
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TYÄMÄRKÄ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shantell+Sans&family=Slackey&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Agregar etiqueta link para el Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <style>
+        /* Estilos comunes para PC y dispositivos móviles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .logo {
+            max-height: 50px;
+            max-width: 100%;
+            margin-right: 10px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 0;
+            margin-bottom: 0;
+            flex-grow: 1;
+            margin-right: 20%;
+        }
+
+        .menu a {
+            display: block;
+            padding: 5px 10px;
+            color: #000;
+            background-color: transparent;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-family: 'Slackey', cursive;
+            text-transform: uppercase;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #6F273F;
+            color: #fff;
+        }
+
+        .menu a {
+            flex: 1;
+        }
+
+        /* Estilos para PC */
+        @media only screen and (min-width: 601px) {
+            header {
+                background-color: #FFAC06;
+                padding: 10px 20px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                align-items: center;
+            }
+
+            .logo-title-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo {
+                margin-right: 10px;
+            }
+
+            h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 24px;
+                margin-right: 10px;
+            }
+
+            .menu {
+                flex-grow: 2;
+            }
+
+            .movil-header {
+                display: none;
+            }
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                display: none;
+            }
+
+            .movil-header {
+                background-color: #FFAC06;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .movil-menu-toggle {
+                font-size: 24px;
+                cursor: pointer;
+                order: 1; /* Cambiamos el orden del símbolo del menú */
+            }
+
+            .movil-logo {
+                max-height: 40px;
+                max-width: 100%;
+                margin-right: 10px;
+                order: 2; /* Cambiamos el orden del logo */
+            }
+
+            .movil-h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 18px;
+                margin-right: 10px;
+                order: 3; /* Cambiamos el orden del título */
+            }
+
+            .movil-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #FFAC06;
+                z-index: 1;
+            }
+
+            .movil-menu a {
+                margin: 5px 0;
+            }
+
+            .movil-menu.show-menu {
+                display: flex;
+            }
+
+            .movil-menu a {
+                display: block;
+                padding: 5px 10px;
+                color: #fff;
+                background-color: transparent;
+                text-align: center;
+                text-decoration: none;
+                font-size: 14px;
+                font-family: 'Slackey', cursive;
+                text-transform: uppercase;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .movil-menu a:hover {
+                background-color: #6F273F;
+            }
+
+            .movil-menu a {
+                flex: 1;
+            }
+
+            /* Estilos para el contenedor del menú móvil */
+            .movil-header {
+                position: relative;
+            }
+        }
+    </style>
+    <script>
+        // Función para mostrar/ocultar el menú en dispositivos móviles
+        function toggleMenu() {
+            var movilMenu = document.querySelector('.movil-menu');
+            movilMenu.classList.toggle('show-menu');
+            var toggleButton = document.querySelector('.movil-menu-toggle');
+            var isExpanded = toggleButton.getAttribute('aria-expanded') === 'true' || false;
+            toggleButton.setAttribute('aria-expanded', !isExpanded);
+        }
+    </script>
+</head>
+<body>
+    <!-- Header para PC -->
+    <header>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo YÄMÄRKÄ">
+            </a>
+            <h1 class="titulo-principal">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/page1.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/page2.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/page3.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+
+    <!-- Header para dispositivos móviles -->
+    <header class="movil-header">
+        <!-- Símbolo "☰" para abrir el menú -->
+        <span class="movil-menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="movil-menu">&#9776;</span>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="movil-logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo ">
+            </a>
+            <h1 class="movil-h1">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="movil-menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/page1.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/page2.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/page3.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+</body>
+</html>
+
+
+    <!-- Modal para mostrar la imagen en pantalla completa -->
+    <div id="modal" class="modal">
+        <span class="modal-contenido">
+            <img id="modal-imagen" class="modal-imagen" alt="Top 100 datos sorprendentes sobre Uruguay">
+        </span>
+    </div>
+
+    <section class="noticia-completa">
+        <h2>Top 100 datos sorprendentes sobre Uruguay</h2>
+        <div class="texto-contenedor">
+            <img src="https://i.ibb.co/vsqQgcC/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg" alt="Top 100 datos sorprendentes sobre Uruguay" id="Top-100-datos-sorprendentes-sobre-Uruguay" onclick="mostrarModalImagen('https://i.ibb.co/vsqQgcC/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg')">
+            <p><strong>1. Uns paraíso de la biodiversidad:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> A pesar de ser uno de los países más pequeños de América del Sur, Uruguay alberga una sorprendente biodiversidad. Se han identificado más de 400 especies de aves, lo que convierte al país en un destino imperdible para los amantes del avistamiento de aves.
+
+<strong>2. Primera liga de fútbol en Sudamérica:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> En 1900, Uruguay fundó la primera liga de fútbol en Sudamérica, la Liga Uruguaya de Football, marcando el inicio de una larga tradición futbolística en la región.
+
+<strong>3. Energía eólica líder en la región:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> Uruguay ha hecho grandes avances en la producción de energía eólica. En 2017, el 33% de la electricidad del país fue generada por turbinas eólicas, superando a la mayoría de los países de América Latina en el uso de esta energía renovable.
+
+<strong>4. Legalización de la marihuana:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> Uruguay se convirtió en el primer país del mundo en legalizar la producción, venta y consumo de marihuana en 2013, buscando abordar el problema del narcotráfico y promover un enfoque de salud pública en el consumo de drogas.
+
+<strong>5. Sin ejército desde 1955:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> En 1955, Uruguay abolió su ejército y se convirtió en una nación completamente desmilitarizada. En su lugar, se enfocó en invertir en educación y bienestar social.
+
+<strong>6. Índice de desarrollo humano alto:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> Uruguay se destaca por su alto Índice de Desarrollo Humano (IDH), ubicándose entre los primeros países de América Latina en términos de educación, esperanza de vida y nivel de vida.
+
+<strong>7. Escuela gratuita para extranjeros:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> Uruguay ofrece educación pública gratuita incluso para estudiantes extranjeros, lo que ha atraído a estudiantes de todo el mundo a sus instituciones académicas.
+
+<strong>8. La casa más angosta de América:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> En Montevideo, la capital, se encuentra la "Casa más angosta de América", con solo 2.3 metros de ancho y 7 metros de profundidad. ¡Es un fascinante ejemplo de arquitectura ingeniosa!
+
+<strong>9. Carnaval patrimonio de la humanidad:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> El Carnaval de Uruguay es tan importante culturalmente que fue declarado Patrimonio de la Humanidad por la UNESCO en 2009. Es una celebración vibrante llena de música, baile y desfiles coloridos.
+
+<strong>10. Consumo récord de carne por persona:</strong> <br><img src="https://i.ibb.co/4RPQfd2/Fachada-The-Grand-Hotel-Punta-del-Este-750x375.jpg"><br> Los uruguayos son conocidos por ser grandes amantes de la carne. De hecho, el consumo promedio de carne por persona en Uruguay es uno de los más altos del mundo, superando incluso a países famosos por sus parrillas como Argentina y Australia.
+</p>
+        </div>
+        <p class="fecha">Fecha: 26/07/2023</p>
+    </section>
+
+    <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <style>
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <p>&copy; <span id="current-year"></span> YÄMÄRKÄ. Todos los derechos reservados.</p>
+
+        <script>
+            // JavaScript para obtener el año actual y mostrarlo en el pie de página
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+</html>
+
+</body>
+</html>
