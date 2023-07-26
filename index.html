@@ -19,6 +19,13 @@
                 }
             });
 
+            // Función para eliminar etiquetas HTML del contenido
+            function stripHTMLTags(html) {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = html;
+                return tmp.textContent || tmp.innerText || "";
+            }
+
             // Función para mostrar las últimas 3 noticias
             function mostrarUltimasNoticias() {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
@@ -36,10 +43,9 @@
                         }
                     }
                     var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                    cuerpoHTML += '<div class="noticias-container">';
                     for (var j = 0; j < ultimasNoticias.length; j++) {
                         var noticia = ultimasNoticias[j];
-                        var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                        var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
                         cuerpoHTML += `
                             <div class="noticia">
                                 <a href="${noticia.enlace_noticia}" class="enlace-noticia">
@@ -51,7 +57,6 @@
                             </div>
                         `;
                     }
-                    cuerpoHTML += '</div>';
                     $('#cuerpo').html(cuerpoHTML);
                 });
             }
@@ -91,7 +96,8 @@
         /* Estilos del cuerpo y las noticias */
         #cuerpo {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
             padding: 20px;
         }
@@ -104,12 +110,6 @@
             margin: 0;
             width: 100%;
             margin-bottom: 30px;
-        }
-
-        .noticias-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
         }
 
         .noticia {
