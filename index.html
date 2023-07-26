@@ -41,7 +41,7 @@
                         var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
                         cuerpoHTML += `
                             <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
+                                <a href="${noticia.enlace_noticia}" class="enlace-noticia">
                                     <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
                                     <h3>${noticia.titulo}</h3>
                                     <p>${previewContenido}...</p>
@@ -183,3 +183,4 @@
 </body>
 <head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
+
