@@ -36,6 +36,7 @@
                         }
                     }
                     var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
+                    cuerpoHTML += '<div class="noticias-container">';
                     for (var j = 0; j < ultimasNoticias.length; j++) {
                         var noticia = ultimasNoticias[j];
                         var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
@@ -50,6 +51,7 @@
                             </div>
                         `;
                     }
+                    cuerpoHTML += '</div>';
                     $('#cuerpo').html(cuerpoHTML);
                 });
             }
@@ -89,8 +91,7 @@
         /* Estilos del cuerpo y las noticias */
         #cuerpo {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             padding: 20px;
         }
@@ -103,6 +104,12 @@
             margin: 0;
             width: 100%;
             margin-bottom: 30px;
+        }
+
+        .noticias-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .noticia {
@@ -183,4 +190,3 @@
 </body>
 <head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
-
