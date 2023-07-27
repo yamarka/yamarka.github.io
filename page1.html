@@ -23,6 +23,17 @@
                 }
             });
 
+            // Función para eliminar etiquetas HTML y <img> del contenido
+            function stripHTMLTags(html) {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = html;
+                var imgs = tmp.getElementsByTagName('img');
+                for (var i = 0; i < imgs.length; i++) {
+                    imgs[i].remove();
+                }
+                return tmp.textContent || tmp.innerText || "";
+            }
+
             // Función para mostrar las últimas 5 noticias para categoría 1
             function mostrarUltimasNoticias() {
                 $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
@@ -46,7 +57,7 @@
                 var final = noticiasMostradas + noticiasPorPagina;
                 for (var j = noticiasMostradas; j < final && j < noticiasCategoria1.length; j++) {
                     var noticia = noticiasCategoria1[j];
-                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
                     cuerpoHTML += `
                         <div class="noticia">
                             <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
@@ -73,7 +84,7 @@
                 var final = noticiasMostradas + noticiasPorPagina;
                 for (var j = noticiasMostradas; j < final && j < noticiasCategoria1.length; j++) {
                     var noticia = noticiasCategoria1[j];
-                    var previewContenido = noticia.contenido.split(' ').slice(0, 50).join(' ');
+                    var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
                     var noticiaHTML = `
                         <div class="noticia">
                             <a href="${noticia.enlace_noticia}" target="_blank" class="enlace-noticia">
@@ -182,14 +193,16 @@
             color: #333;
             text-align: center;
             margin-bottom: 10px;
+            line-height: 1.2; /* Ajustar el interlineado */
         }
 
         p {
             margin: 0;
             font-size: 1rem;
-            color: #777;
+            color: #555; /* Cambiar el color a un tono más oscuro que #777 */
             text-align: center;
             padding: 0 15px;
+            line-height: 1.6; /* Ajustar el interlineado */
         }
 
         .leer-mas {
@@ -222,5 +235,5 @@
     <div id="cuerpo"></div>
     <div id="footer"></div>
 </body>
-<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
-</html>
+<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </html>
+
