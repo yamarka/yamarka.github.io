@@ -4,189 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Últimas Noticias</title>
-    <!-- Obtener el header -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el header');
-                }
-            });
-
-            // Función para eliminar etiquetas HTML del contenido
-            function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
-
-            // Función para mostrar las últimas 3 noticias
-            function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
-                    var ultimasNoticias = [];
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        var noticia = data[i];
-                        // Verificar si la noticia ya se agregó previamente
-                        if (!noticiasUnicas[noticia.titulo]) {
-                            noticiasUnicas[noticia.titulo] = true;
-                            ultimasNoticias.push(noticia);
-                        }
-                        if (ultimasNoticias.length >= 3) {
-                            break;
-                        }
-                    }
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
-                });
-            }
-
-            mostrarUltimasNoticias();
-
-            // Obtener el footer
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#footer').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el footer');
-                }
-            });
-        });
-    </script>
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            background-image: url("https://i.ibb.co/XZxn94m/white-abstract-background-backdrop-for-presentation-design-for-website-free-photo.jpg");
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Estilos del header */
-        #header {
-            /* Estilos del header obtenidos desde GitHub */
-        }
-
-        /* Estilos del cuerpo y las noticias */
-        #cuerpo {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .titulo-noticias {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin: 0;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-
-        .noticia {
-            width: 300px;
-            margin: 20px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
-            border-radius: 8px;
-        }
-
-        .noticia:hover {
-            transform: translateY(-5px);
-        }
-
-        .imagen-noticia {
-            width: 100%;
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 10px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        h3 {
-            margin: 0;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 10px;
-            line-height: 1.2; /* Ajustar el interlineado */
-        }
-
-        p {
-            margin: 0;
-            font-size: 1rem;
-            color: #555; /* Cambiar el color a un tono más oscuro que #777 */
-            text-align: center;
-            padding: 0 15px;
-            line-height: 1.6; /* Ajustar el interlineado */
-        }
-
-        .leer-mas {
-            display: block;
-            margin-top: 10px;
-            color: #007BFF;
-            cursor: pointer;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .leer-mas:hover {
-            color: #0056b3;
-        }
-
-        /* Estilos de los enlaces */
-        .enlace-noticia {
-            text-decoration: none;
-        }
-
-        /* Estilos del footer */
-        #footer {
-            /* Estilos del footer obtenidos desde GitHub */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="indexestilos.css">
 </head>
 <body>
+    <!-- Animación de carga -->
+    <div id="loading-animation" class="loading-animation">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Contenido principal -->
     <div id="header"></div>
-    <div id="cuerpo"></div>
+    <div id="cuerpo" style="display: none;"></div>
     <div id="footer"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="indexfunciones.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
 </body>
-<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
