@@ -16,6 +16,9 @@
             padding: 0;
             font-size: 16px;
             line-height: 1.6;
+            background-image: url("https://i.ibb.co/XZxn94m/white-abstract-background-backdrop-for-presentation-design-for-website-free-photo.jpg");
+            background-size: cover;
+            background-position: center;
         }
 
         .logo {
@@ -185,6 +188,9 @@
             toggleButton.setAttribute('aria-expanded', !isExpanded);
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="indexfunciones.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Header para PC -->
@@ -221,18 +227,73 @@
         </nav>
     </header>
 
-    <!-- Animación de carga -->
-    <div id="loading-animation" class="loading-animation">
-        <div class="loader"></div>
-    </div>
+     <!-- Contenido de la página -->
+<div id="cuerpo">
+    <!-- Aquí se mostrarán las últimas noticias dinámicamente -->
+</div>
 
-    <!-- Contenido principal -->
-    <div id="header"></div>
-    <div id="cuerpo" style="display: none;"></div>
-    <div id="footer"></div>
+<!-- Footer -->
+<div id="footer">
+    <!-- Contenido del footer -->
+    <!-- Copia y pega aquí el código del footer que se encuentra en el archivo footer.html -->
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="indexfunciones.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
-</body>
-</html>
+<script>
+$(document).ready(function () {
+    // Función para eliminar etiquetas HTML del contenido
+    function stripHTMLTags(html) {
+        var tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
+
+    // Función para mostrar las últimas 3 noticias
+    function mostrarUltimasNoticias() {
+        $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+            var noticiasUnicas = {};
+            var ultimasNoticias = [];
+            for (var i = data.length - 1; i >= 0; i--) {
+                var noticia = data[i];
+                // Verificar si la noticia ya se agregó previamente
+                if (!noticiasUnicas[noticia.titulo]) {
+                    noticiasUnicas[noticia.titulo] = true;
+                    ultimasNoticias.push(noticia);
+                }
+                if (ultimasNoticias.length >= 3) {
+                    break;
+                }
+            }
+            var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
+            for (var j = 0; j < ultimasNoticias.length; j++) {
+                var noticia = ultimasNoticias[j];
+                var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
+                cuerpoHTML += `
+                    <div class="noticia">
+                        <a href="${noticia.enlace_noticia}" class="enlace-noticia">
+                            <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                            <h3>${noticia.titulo}</h3>
+                            <p>${previewContenido}...</p>
+                            <span class="leer-mas">Leer más</span>
+                        </a>
+                    </div>
+                `;
+            }
+            $('#cuerpo').html(cuerpoHTML);
+        });
+    }
+
+    mostrarUltimasNoticias();
+
+    // Obtener el footer
+    $.ajax({
+        url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
+        dataType: 'html',
+        success: function (data) {
+            $('#footer').html(data);
+        },
+        error: function () {
+            console.log('Error al obtener el footer');
+        }
+    });
+});
+</script>
