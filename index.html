@@ -17,171 +17,237 @@
         }
 
         /* Estilos del header */
-        #header {
-            /* Estilos del header obtenidos desde GitHub */
-        }
-
-        /* Estilos del cuerpo y las noticias */
-        #cuerpo {
+        header {
+            background-color: #FFAC06;
+            padding: 10px 20px;
+            color: #fff;
+            text-align: center;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
-        .titulo-noticias {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
+        .logo {
+            max-height: 50px;
+            max-width: 100%;
+            margin-right: 10px;
+        }
+
+        h1 {
             margin: 0;
-            width: 100%;
-            margin-bottom: 30px;
+            font-family: 'Shantell Sans', sans-serif;
+            font-size: 24px;
+            margin-right: 10px;
         }
 
-        .noticia {
-            width: 300px;
-            margin: 20px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .menu {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
-            border-radius: 8px;
+            justify-content: flex-start;
+            margin-top: 0;
+            margin-bottom: 0;
+            flex-grow: 1;
+            margin-right: 20%;
         }
 
-        .noticia:hover {
-            transform: translateY(-5px);
-        }
-
-        .imagen-noticia {
-            width: 100%;
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-            margin-bottom: 10px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        h3 {
-            margin: 0;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            margin-bottom: 10px;
-            line-height: 1.2; /* Ajustar el interlineado */
-        }
-
-        p {
-            margin: 0;
-            font-size: 1rem;
-            color: #555; /* Cambiar el color a un tono más oscuro que #777 */
-            text-align: center;
-            padding: 0 15px;
-            line-height: 1.6; /* Ajustar el interlineado */
-        }
-
-        .leer-mas {
+        .menu a {
             display: block;
-            margin-top: 10px;
-            color: #007BFF;
-            cursor: pointer;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .leer-mas:hover {
-            color: #0056b3;
-        }
-
-        /* Estilos de los enlaces */
-        .enlace-noticia {
+            padding: 5px 10px;
+            color: #000;
+            background-color: transparent;
+            text-align: center;
             text-decoration: none;
+            font-size: 14px;
+            font-family: 'Slackey', cursive;
+            text-transform: uppercase;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Estilos del footer */
-        #footer {
-            /* Estilos del footer obtenidos desde GitHub */
+        .menu a:hover {
+            background-color: #6F273F;
+            color: #fff;
+        }
+
+        .menu a {
+            flex: 1;
+        }
+
+        /* Estilos para PC */
+        @media only screen and (min-width: 601px) {
+            header {
+                background-color: #FFAC06;
+                padding: 10px 20px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                align-items: center;
+            }
+
+            .logo-title-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo {
+                margin-right: 10px;
+            }
+
+            h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 24px;
+                margin-right: 10px;
+            }
+
+            .menu {
+                flex-grow: 2;
+            }
+
+            .movil-header {
+                display: none;
+            }
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                display: none;
+            }
+
+            .movil-header {
+                background-color: #FFAC06;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .movil-menu-toggle {
+                font-size: 24px;
+                cursor: pointer;
+                order: 1; /* Cambiamos el orden del símbolo del menú */
+            }
+
+            .movil-logo {
+                max-height: 40px;
+                max-width: 100%;
+                margin-right: 10px;
+                order: 2; /* Cambiamos el orden del logo */
+            }
+
+            .movil-h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 18px;
+                margin-right: 10px;
+                order: 3; /* Cambiamos el orden del título */
+            }
+
+            .movil-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #FFAC06;
+                z-index: 1;
+            }
+
+            .movil-menu a {
+                margin: 5px 0;
+            }
+
+            .movil-menu.show-menu {
+                display: flex;
+            }
+
+            .movil-menu a {
+                display: block;
+                padding: 5px 10px;
+                color: #fff;
+                background-color: transparent;
+                text-align: center;
+                text-decoration: none;
+                font-size: 14px;
+                font-family: 'Slackey', cursive;
+                text-transform: uppercase;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .movil-menu a:hover {
+                background-color: #6F273F;
+            }
+
+            .movil-menu a {
+                flex: 1;
+            }
+
+            /* Estilos para el contenedor del menú móvil */
+            .movil-header {
+                position: relative;
+            }
         }
     </style>
-</head>
-<body>
-    <div id="header"></div>
-    <div id="cuerpo"></div>
-    <div id="footer"></div>
-
-    <!-- Obtener el header -->
     <script>
+         // Función para mostrar/ocultar el menú en dispositivos móviles
+        function toggleMenu() {
+            var movilMenu = document.querySelector('.movil-menu');
+            movilMenu.classList.toggle('show-menu');
+            var toggleButton = document.querySelector('.movil-menu-toggle');
+            var isExpanded = toggleButton.getAttribute('aria-expanded') === 'true' || false;
+            toggleButton.setAttribute('aria-expanded', !isExpanded);
+        }
+
+        // Código para obtener y procesar el contenido del header
         window.addEventListener("load", function () {
             fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
                 .then(response => response.text())
                 .then(data => {
-                    document.getElementById('header').innerHTML = data;
+                    var headerContainer = document.getElementById('header');
+                    headerContainer.innerHTML = data;
+
+                    // Procesar los enlaces del header para que los scáners de sitemap los detecten
+                    var headerLinks = headerContainer.getElementsByTagName('a');
+                    for (var i = 0; i < headerLinks.length; i++) {
+                        var link = headerLinks[i];
+                        var href = link.getAttribute('href');
+                        if (href && href.startsWith('http')) {
+                            link.setAttribute('rel', 'sitemap');
+                        }
+                    }
                 })
                 .catch(error => {
                     console.log('Error al obtener el header:', error);
                 });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html" rel="sitemap">
+                <img class="logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo YÄMÄRKÄ">
+            </a>
+            <h1 class="titulo-principal">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="menu">
+            <a href="https://yamarka.github.io/index.html" rel="sitemap">INICIO</a>
+            <a href="https://yamarka.github.io/page1.html" rel="sitemap">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/page2.html" rel="sitemap">MEJORES 5</a>
+            <a href="https://yamarka.github.io/page3.html" rel="sitemap">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
 
-            // Función para eliminar etiquetas HTML del contenido
-            function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
-
-            // Función para mostrar las últimas 3 noticias
-            function mostrarUltimasNoticias() {
-                fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        var noticiasUnicas = {};
-                        var ultimasNoticias = [];
-                        for (var i = data.length - 1; i >= 0; i--) {
-                            var noticia = data[i];
-                            // Verificar si la noticia ya se agregó previamente
-                            if (!noticiasUnicas[noticia.titulo]) {
-                                noticiasUnicas[noticia.titulo] = true;
-                                ultimasNoticias.push(noticia);
-                            }
-                            if (ultimasNoticias.length >= 3) {
-                                break;
-                            }
-                        }
-                        var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                        for (var j = 0; j < ultimasNoticias.length; j++) {
-                            var noticia = ultimasNoticias[j];
-                            var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
-                            cuerpoHTML += `
-                                <div class="noticia">
-                                    <a href="${noticia.enlace_noticia}" class="enlace-noticia">
-                                        <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                        <h3>${noticia.titulo}</h3>
-                                        <p>${previewContenido}...</p>
-                                        <span class="leer-mas">Leer más</span>
-                                    </a>
-                                </div>
-                            `;
-                        }
-                        document.getElementById('cuerpo').innerHTML = cuerpoHTML;
-                    })
-                    .catch(error => {
-                        console.log('Error al obtener las noticias:', error);
-                    });
-            }
-
-            mostrarUltimasNoticias();
-
-            // Obtener el footer
+    <div id="cuerpo"></div>
+    <script>
+        window.addEventListener("load", function () {
             fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
                 .then(response => response.text())
                 .then(data => {
-                    document.getElementById('footer').innerHTML = data;
+                    var footerContainer = document.querySelector('footer');
+                    footerContainer.innerHTML = data;
                 })
                 .catch(error => {
                     console.log('Error al obtener el footer:', error);
@@ -189,6 +255,55 @@
         });
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
+    <script>
+        // Función para eliminar etiquetas HTML del contenido
+        function stripHTMLTags(html) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || "";
+        }
+
+        // Función para mostrar las últimas 3 noticias
+        function mostrarUltimasNoticias() {
+            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
+                .then(response => response.json())
+                .then(data => {
+                    var noticiasUnicas = {};
+                    var ultimasNoticias = [];
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        var noticia = data[i];
+                        // Verificar si la noticia ya se agregó previamente
+                        if (!noticiasUnicas[noticia.titulo]) {
+                            noticiasUnicas[noticia.titulo] = true;
+                            ultimasNoticias.push(noticia);
+                        }
+                        if (ultimasNoticias.length >= 3) {
+                            break;
+                        }
+                    }
+                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
+                    for (var j = 0; j < ultimasNoticias.length; j++) {
+                        var noticia = ultimasNoticias[j];
+                        var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
+                        cuerpoHTML += `
+                            <div class="noticia">
+                                <a href="${noticia.enlace_noticia}" class="enlace-noticia">
+                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                    <h3>${noticia.titulo}</h3>
+                                    <p>${previewContenido}...</p>
+                                    <span class="leer-mas">Leer más</span>
+                                </a>
+                            </div>
+                        `;
+                    }
+                    document.getElementById('cuerpo').innerHTML = cuerpoHTML;
+                })
+                .catch(error => {
+                    console.log('Error al obtener las últimas noticias:', error);
+                });
+        }
+
+        mostrarUltimasNoticias();
+    </script>
 </body>
 </html>
