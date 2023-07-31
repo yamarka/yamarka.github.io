@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Últimas Noticias - YÄMÄRKÄ</title>
-    <!-- Enlace al Sitemap -->
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-    <!-- Enlace a Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shantell+Sans&family=Slackey&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Scripts -->
+    <title>Últimas Noticias</title>
+    <!-- Obtener el header -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#header').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el header');
+                }
+            });
+
             // Función para eliminar etiquetas HTML del contenido
             function stripHTMLTags(html) {
                 var tmp = document.createElement("DIV");
@@ -56,6 +62,18 @@
             }
 
             mostrarUltimasNoticias();
+
+            // Obtener el footer
+            $.ajax({
+                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
+                dataType: 'html',
+                success: function (data) {
+                    $('#footer').html(data);
+                },
+                error: function () {
+                    console.log('Error al obtener el footer');
+                }
+            });
         });
     </script>
     <style>
@@ -71,62 +89,8 @@
         }
 
         /* Estilos del header */
-        header {
-            background-color: #FFAC06;
-            padding: 10px 20px;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo-title-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            max-height: 50px;
-            max-width: 100%;
-            margin-right: 10px;
-        }
-
-        h1 {
-            margin: 0;
-            font-family: 'Shantell Sans', sans-serif;
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .menu {
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 0;
-            margin-bottom: 0;
-            flex-grow: 1;
-            margin-right: 20%;
-        }
-
-        .menu a {
-            display: block;
-            padding: 5px 10px;
-            color: #000;
-            background-color: transparent;
-            text-align: center;
-            text-decoration: none;
-            font-size: 14px;
-            font-family: 'Slackey', cursive;
-            text-transform: uppercase;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .menu a:hover {
-            background-color: #6F273F;
-            color: #fff;
-        }
-
-        .menu a {
-            flex: 1;
+        #header {
+            /* Estilos del header obtenidos desde GitHub */
         }
 
         /* Estilos del cuerpo y las noticias */
@@ -214,92 +178,15 @@
         }
 
         /* Estilos del footer */
-        footer {
-            text-align: center;
-            background-color: black;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            padding: 10px;
+        #footer {
+            /* Estilos del footer obtenidos desde GitHub */
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <div class="logo-title-container">
-            <a href="https://yamarka.github.io/index.html">
-                <img class="logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo YÄMÄRKÄ">
-            </a>
-            <h1 class="titulo-principal">YÄMÄRKÄ</h1>
-        </div>
-        <nav class="menu">
-            <a href="https://yamarka.github.io/index.html">INICIO</a>
-            <a href="https://yamarka.github.io/page1.html">ACTUALIDAD</a>
-            <a href="https://yamarka.github.io/page2.html">MEJORES 5</a>
-            <a href="https://yamarka.github.io/page3.html">DESCUENTOS DIARIOS</a>
-        </nav>
-    </header>
-
+    <div id="header"></div>
     <div id="cuerpo"></div>
-
-    <footer>
-        <p>&copy; <span id="current-year"></span> YÄMÄRKÄ. Todos los derechos reservados.</p>
-
-        <script>
-            // JavaScript para obtener el año actual y mostrarlo en el pie de página
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-        </script>
-    </footer>
-
-    <script>
-        $(document).ready(function () {
-            // Función para eliminar etiquetas HTML del contenido
-            function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
-
-            // Función para mostrar las últimas 3 noticias
-            function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
-                    var ultimasNoticias = [];
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        var noticia = data[i];
-                        // Verificar si la noticia ya se agregó previamente
-                        if (!noticiasUnicas[noticia.titulo]) {
-                            noticiasUnicas[noticia.titulo] = true;
-                            ultimasNoticias.push(noticia);
-                        }
-                        if (ultimasNoticias.length >= 3) {
-                            break;
-                        }
-                    }
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
-                });
-            }
-
-            mostrarUltimasNoticias();
-        });
-    </script>
+    <div id="footer"></div>
 </body>
-
+<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
-
-
