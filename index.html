@@ -4,78 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Últimas Noticias</title>
-    <!-- Obtener el header -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el header');
-                }
-            });
-
-            // Función para eliminar etiquetas HTML del contenido
-            function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
-
-            // Función para mostrar las últimas 3 noticias
-            function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
-                    var noticiasUnicas = {};
-                    var ultimasNoticias = [];
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        var noticia = data[i];
-                        // Verificar si la noticia ya se agregó previamente
-                        if (!noticiasUnicas[noticia.titulo]) {
-                            noticiasUnicas[noticia.titulo] = true;
-                            ultimasNoticias.push(noticia);
-                        }
-                        if (ultimasNoticias.length >= 3) {
-                            break;
-                        }
-                    }
-                    var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
-                    for (var j = 0; j < ultimasNoticias.length; j++) {
-                        var noticia = ultimasNoticias[j];
-                        var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
-                        cuerpoHTML += `
-                            <div class="noticia">
-                                <a href="${noticia.enlace_noticia}" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
-                                    <h3>${noticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                    }
-                    $('#cuerpo').html(cuerpoHTML);
-                });
-            }
-
-            mostrarUltimasNoticias();
-
-            // Obtener el footer
-            $.ajax({
-                url: 'https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html',
-                dataType: 'html',
-                success: function (data) {
-                    $('#footer').html(data);
-                },
-                error: function () {
-                    console.log('Error al obtener el footer');
-                }
-            });
-        });
-    </script>
     <style>
         /* Estilos generales */
         body {
@@ -187,6 +115,80 @@
     <div id="header"></div>
     <div id="cuerpo"></div>
     <div id="footer"></div>
+
+    <!-- Obtener el header -->
+    <script>
+        window.addEventListener("load", function () {
+            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                })
+                .catch(error => {
+                    console.log('Error al obtener el header:', error);
+                });
+
+            // Función para eliminar etiquetas HTML del contenido
+            function stripHTMLTags(html) {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = html;
+                return tmp.textContent || tmp.innerText || "";
+            }
+
+            // Función para mostrar las últimas 3 noticias
+            function mostrarUltimasNoticias() {
+                fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        var noticiasUnicas = {};
+                        var ultimasNoticias = [];
+                        for (var i = data.length - 1; i >= 0; i--) {
+                            var noticia = data[i];
+                            // Verificar si la noticia ya se agregó previamente
+                            if (!noticiasUnicas[noticia.titulo]) {
+                                noticiasUnicas[noticia.titulo] = true;
+                                ultimasNoticias.push(noticia);
+                            }
+                            if (ultimasNoticias.length >= 3) {
+                                break;
+                            }
+                        }
+                        var cuerpoHTML = '<h2 class="titulo-noticias">Últimas Noticias:</h2>';
+                        for (var j = 0; j < ultimasNoticias.length; j++) {
+                            var noticia = ultimasNoticias[j];
+                            var previewContenido = stripHTMLTags(noticia.contenido).split(' ').slice(0, 50).join(' ');
+                            cuerpoHTML += `
+                                <div class="noticia">
+                                    <a href="${noticia.enlace_noticia}" class="enlace-noticia">
+                                        <div class="imagen-noticia" style="background-image: url(${noticia.imagen});"></div>
+                                        <h3>${noticia.titulo}</h3>
+                                        <p>${previewContenido}...</p>
+                                        <span class="leer-mas">Leer más</span>
+                                    </a>
+                                </div>
+                            `;
+                        }
+                        document.getElementById('cuerpo').innerHTML = cuerpoHTML;
+                    })
+                    .catch(error => {
+                        console.log('Error al obtener las noticias:', error);
+                    });
+            }
+
+            mostrarUltimasNoticias();
+
+            // Obtener el footer
+            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(error => {
+                    console.log('Error al obtener el footer:', error);
+                });
+        });
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
 </body>
-<head> <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script> </head>
 </html>
