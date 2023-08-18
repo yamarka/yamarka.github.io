@@ -1,0 +1,387 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Descubre los encantos de los Bulldogs Franceses</title>
+        <!-- Agregar etiqueta link para el Sitemap -->
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+        <style>
+            /* ... Estilos CSS previos ... */
+            .noticia-completa {
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .noticia-completa h2 {
+                font-size: 32px;
+                color: #3366cc;
+                font-family: 'Anton', sans-serif;
+                text-align: center;
+                margin: 20px 0;
+            }
+            .noticia-completa img {
+                width: 300px;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-right: 20px;
+                margin-bottom: 20px;
+                float: left; /* Colocar la imagen a la izquierda */
+                cursor: pointer; /* Cambiar el cursor al hacer clic en la imagen */
+            }
+            .noticia-completa .texto-contenedor {
+                overflow: hidden; /* Asegurar que el texto fluya alrededor de la imagen */
+            }
+            .noticia-completa .texto-contenedor p {
+                font-family: 'Work Sans', sans-serif;
+                margin: 0;
+                text-align: justify; /* Justificar el texto */
+            }
+            .noticia-completa strong {
+                display: block; /* Hacer que las etiquetas <strong> ocupen todo el ancho disponible */
+                margin: 1em 0; /* Ajustar el interlineado antes y después de las etiquetas <strong> */
+                font-weight: bold; /* Resaltar el texto en negrita */
+            }
+            /* Estilos CSS para dispositivos móviles */
+            @media (max-width: 768px) {
+                .noticia-completa img {
+                    width: 100%;
+                    margin-right: 0;
+                }
+            }
+            /* Estilos para el modal de la imagen */
+            .modal {
+                display: none; /* Ocultar el modal por defecto */
+                position: fixed;
+                z-index: 1;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.9); /* Fondo semi-transparente */
+            }
+            .modal-contenido {
+                display: block;
+                margin: auto;
+                width: 80%;
+                max-width: 600px;
+            }
+            .modal-imagen {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+        <script>
+            // Agregar evento click a la imagen para mostrar el modal
+            function mostrarModalImagen(enlace_imagen) {
+                var modal = document.getElementById('modal');
+                var modalImagen = document.getElementById('modal-imagen');
+                modalImagen.src = enlace_imagen;
+                modal.style.display = 'block';
+
+                // Agregar evento click al modal para ocultarlo al hacer clic fuera de la imagen
+                modal.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Reemplazar el header estático por el header dinámico -->
+        <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TYÄMÄRKÄ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Shantell+Sans&family=Slackey&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Agregar etiqueta link para el Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    <style>
+        /* Estilos comunes para PC y dispositivos móviles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .logo {
+            max-height: 50px;
+            max-width: 100%;
+            margin-right: 10px;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 0;
+            margin-bottom: 0;
+            flex-grow: 1;
+            margin-right: 20%;
+        }
+
+        .menu a {
+            display: block;
+            padding: 5px 10px;
+            color: #000;
+            background-color: transparent;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-family: 'Slackey', cursive;
+            text-transform: uppercase;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu a:hover {
+            background-color: #6F273F;
+            color: #fff;
+        }
+
+        .menu a {
+            flex: 1;
+        }
+
+        /* Estilos para PC */
+        @media only screen and (min-width: 601px) {
+            header {
+                background-color: #FFAC06;
+                padding: 10px 20px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                align-items: center;
+            }
+
+            .logo-title-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .logo {
+                margin-right: 10px;
+            }
+
+            h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 24px;
+                margin-right: 10px;
+            }
+
+            .menu {
+                flex-grow: 2;
+            }
+
+            .movil-header {
+                display: none;
+            }
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media only screen and (max-width: 600px) {
+            header {
+                display: none;
+            }
+
+            .movil-header {
+                background-color: #FFAC06;
+                padding: 10px;
+                color: #fff;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .movil-menu-toggle {
+                font-size: 24px;
+                cursor: pointer;
+                order: 1; /* Cambiamos el orden del símbolo del menú */
+            }
+
+            .movil-logo {
+                max-height: 40px;
+                max-width: 100%;
+                margin-right: 10px;
+                order: 2; /* Cambiamos el orden del logo */
+            }
+
+            .movil-h1 {
+                margin: 0;
+                font-family: 'Shantell Sans', sans-serif;
+                font-size: 18px;
+                margin-right: 10px;
+                order: 3; /* Cambiamos el orden del título */
+            }
+
+            .movil-menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #FFAC06;
+                z-index: 1;
+            }
+
+            .movil-menu a {
+                margin: 5px 0;
+            }
+
+            .movil-menu.show-menu {
+                display: flex;
+            }
+
+            .movil-menu a {
+                display: block;
+                padding: 5px 10px;
+                color: #fff;
+                background-color: transparent;
+                text-align: center;
+                text-decoration: none;
+                font-size: 14px;
+                font-family: 'Slackey', cursive;
+                text-transform: uppercase;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            .movil-menu a:hover {
+                background-color: #6F273F;
+            }
+
+            .movil-menu a {
+                flex: 1;
+            }
+
+            /* Estilos para el contenedor del menú móvil */
+            .movil-header {
+                position: relative;
+            }
+        }
+    </style>
+    <script>
+        // Función para mostrar/ocultar el menú en dispositivos móviles
+        function toggleMenu() {
+            var movilMenu = document.querySelector('.movil-menu');
+            movilMenu.classList.toggle('show-menu');
+            var toggleButton = document.querySelector('.movil-menu-toggle');
+            var isExpanded = toggleButton.getAttribute('aria-expanded') === 'true' || false;
+            toggleButton.setAttribute('aria-expanded', !isExpanded);
+        }
+    </script>
+</head>
+<body>
+    <!-- Header para PC -->
+    <header>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo YÄMÄRKÄ">
+            </a>
+            <h1 class="titulo-principal">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/actualidad.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/top5.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/descuentos-diarios.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+
+    <!-- Header para dispositivos móviles -->
+    <header class="movil-header">
+        <!-- Símbolo "☰" para abrir el menú -->
+        <span class="movil-menu-toggle" onclick="toggleMenu()" aria-expanded="false" aria-controls="movil-menu">&#9776;</span>
+        <div class="logo-title-container">
+            <a href="https://yamarka.github.io/index.html">
+                <img class="movil-logo" src="https://raw.githubusercontent.com/yamarka/yamarka.github.io/main/corona.png" alt="Logo ">
+            </a>
+            <h1 class="movil-h1">YÄMÄRKÄ</h1>
+        </div>
+        <nav class="movil-menu">
+            <a href="https://yamarka.github.io/index.html">INICIO</a>
+            <a href="https://yamarka.github.io/actualidad.html">ACTUALIDAD</a>
+            <a href="https://yamarka.github.io/top5.html">MEJORES 5</a>
+            <a href="https://yamarka.github.io/descuentos-diarios.html">DESCUENTOS DIARIOS</a>
+        </nav>
+    </header>
+</body>
+</html>
+
+
+
+        <!-- Modal para mostrar la imagen en pantalla completa -->
+        <div id="modal" class="modal">
+            <span class="modal-contenido">
+                <img id="modal-imagen" class="modal-imagen" alt="Descubre los encantos de los Bulldogs Franceses">
+            </span>
+        </div>
+
+        <section class="noticia-completa">
+            <h2>Descubre los encantos de los Bulldogs Franceses</h2>
+            <div class="texto-contenedor">
+                <img src="https://i.ibb.co/kgDnp37/franz-sische-bulldogge.jpg" alt="Descubre los encantos de los Bulldogs Franceses" class="imagen-principal" id="Descubre-los-encantos-de-los-Bulldogs-Franceses" onclick="mostrarModalImagen('https://i.ibb.co/kgDnp37/franz-sische-bulldogge.jpg')">
+                <p><strong>1. Origen y personalidad:</strong> Los Bulldogs Franceses, también conocidos como Frenchies, se originaron en el siglo XIX como compañeros de los trabajadores textiles en Francia. Son conocidos por su naturaleza amigable y su carácter juguetón.
+
+<strong>2. Características físicas:</strong> Tienen una apariencia distintiva con orejas grandes y erectas, hocico corto y arrugado, y una cola corta. Su pelaje puede ser de varios colores, como crema, atigrado o leonado.
+
+<strong>3. Compañeros leales:</strong> Los Bulldogs Franceses son excelentes compañeros y se llevan bien con personas de todas las edades. Son perros cariñosos y se adaptan bien a la vida en apartamentos debido a su tamaño moderado.
+
+<strong>4. Cuidados especiales:</strong> Debido a su hocico corto, pueden tener dificultades para regular la temperatura, por lo que es importante protegerlos del calor extremo. También pueden tener problemas respiratorios debido a esta característica.
+
+<strong>5. Actividad física:</strong> A pesar de su apariencia un poco robusta, los Bulldogs Franceses disfrutan de actividades ligeras y paseos cortos. No necesitan ejercicio extenuante y prefieren descansar en interiores.
+
+<strong>6. Popularidad en la cultura:</strong> Estos perros se han vuelto populares en la cultura moderna y son frecuentemente vistos en las redes sociales y en la compañía de celebridades.
+
+<strong>7. Problemas de salud a considerar:</strong> Debido a su conformación física única, los Bulldogs Franceses pueden estar sujetos a problemas de salud como displasia de cadera, alergias y problemas en la columna vertebral.
+
+<strong>8. Socialización temprana:</strong> Es importante socializar a los Bulldogs Franceses desde cachorros para asegurarse de que se lleven bien con otros perros y personas.
+
+<strong>9. Ladrido característico:</strong> Aunque no son perros excesivamente ruidosos, los Bulldogs Franceses pueden ladrar para alertar sobre situaciones inusuales.
+
+<strong>10. Amor incondicional:</strong> En resumen, los Bulldogs Franceses son adorables compañeros que ofrecen amor incondicional y alegría a las vidas de sus dueños.</p>
+            </div>
+            <p class="fecha">Fecha: 18/08/2023</p>
+        </section>
+
+        <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    <style>
+        footer {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <p>&copy; <span id="current-year"></span> YÄMÄRKÄ. Todos los derechos reservados.</p>
+
+        <script>
+            // JavaScript para obtener el año actual y mostrarlo en el pie de página
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+</body>
+</html>
+
+    </body>
+    </html>
+    
