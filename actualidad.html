@@ -36,7 +36,7 @@
 
             // Función para mostrar las últimas 5 noticias para categoría 1
             function mostrarUltimasNoticias() {
-                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/todaslasnoticias/todaslasnoticias.json', function (data) {
+                $.getJSON('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', function (data) {
                     noticiasCategoria1 = data.filter(function (noticia) {
                         return noticia.categoria === "1";
                     });
