@@ -119,14 +119,14 @@
     <!-- Obtener el header y mostrar las últimas noticias -->
     <script>
         window.addEventListener("load", function () {
-            // Función para eliminar etiquetas HTML del contenido
-            function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
-            }
+    // Función para eliminar etiquetas HTML del contenido
+    function stripHTMLTags(html) {
+        var tmp = document.createElement("DIV");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
 
-                    const fetchAndDisplaySingleContent = (url, targetElement) => {
+    const fetchAndDisplaySingleContent = (url, targetElement) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -165,11 +165,11 @@
     
     setTimeout(() => {
         fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
+        
+        setTimeout(() => {
+            fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+        }, 1000);
     }, 1000);
-    
-    setTimeout(() => {
-        fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
-    }, 2000);
 
     fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
         .then(response => response.text())
