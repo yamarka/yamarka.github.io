@@ -126,52 +126,54 @@
                 return tmp.textContent || tmp.innerText || "";
             }
 
-            const fetchAndDisplayContent = (url, targetElement) => {
-                fetch(url)
-                    .then(response => response.json())
-                    .then(data => {
-                        const ultimaNoticia = data[data.length - 1];
-                        const previewContenido = stripHTMLTags(ultimaNoticia.contenido).split(' ').slice(0, 50).join(' ');
-                        const cuerpoHTML = `
-                            <div class="noticia">
-                                <a href="${ultimaNoticia.enlace_noticia}" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${ultimaNoticia.imagen});"></div>
-                                    <h3>${ultimaNoticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
-                        `;
-                        targetElement.innerHTML += cuerpoHTML;
-                    })
-                    .catch(error => {
-                        console.log('Error al obtener la noticia:', error);
-                    });
-            };
+                const fetchAndDisplaySingleContent = (url, targetElement) => {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const singleNoticia = data[0];
+                    const previewContenido = stripHTMLTags(singleNoticia.contenido).split(' ').slice(0, 50).join(' ');
+                    const cuerpoHTML = `
+                        <div class="noticia">
+                            <a href="${singleNoticia.enlace_noticia}" class="enlace-noticia">
+                                <div class="imagen-noticia" style="background-image: url(${singleNoticia.imagen});"></div>
+                                <h3>${singleNoticia.titulo}</h3>
+                                <p>${previewContenido}...</p>
+                                <span class="leer-mas">Leer más</span>
+                            </a>
+                        </div>
+                    `;
+                    targetElement.innerHTML += cuerpoHTML;
+                }
+            })
+            .catch(error => {
+                console.log('Error al obtener la noticia:', error);
+            });
+    };
 
-            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('header').innerHTML = data;
-                })
-                .catch(error => {
-                    console.log('Error al obtener el header:', error);
-                });
-
-            const cuerpoElement = document.getElementById('cuerpo');
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement);
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
-
-            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('footer').innerHTML = data;
-                })
-                .catch(error => {
-                    console.log('Error al obtener el footer:', error);
-                });
+    fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        })
+        .catch(error => {
+            console.log('Error al obtener el header:', error);
         });
+
+    const cuerpoElement = document.getElementById('cuerpo');
+    fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement);
+    fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
+    fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+
+    fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        })
+        .catch(error => {
+            console.log('Error al obtener el footer:', error);
+        });
+});
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
