@@ -126,7 +126,7 @@
                 return tmp.textContent || tmp.innerText || "";
             }
 
-                const fetchAndDisplaySingleContent = (url, targetElement) => {
+                    const fetchAndDisplaySingleContent = (url, targetElement) => {
         fetch(url)
             .then(response => response.json())
             .then(data => {
@@ -162,8 +162,14 @@
 
     const cuerpoElement = document.getElementById('cuerpo');
     fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement);
-    fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
-    fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+    
+    setTimeout(() => {
+        fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
+    }, 1000);
+    
+    setTimeout(() => {
+        fetchAndDisplaySingleContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+    }, 2000);
 
     fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
         .then(response => response.text())
