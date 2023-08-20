@@ -116,36 +116,23 @@
     <div id="cuerpo"></div>
     <div id="footer"></div>
 
-    <!-- Obtener el header y mostrar las últimas noticias -->
+    <!-- Script para obtener el encabezado y mostrar las noticias -->
     <script>
         window.addEventListener("load", function () {
-            // Función para eliminar etiquetas HTML del contenido
             function stripHTMLTags(html) {
-                var tmp = document.createElement("DIV");
-                tmp.innerHTML = html;
-                return tmp.textContent || tmp.innerText || "";
+                // Función para eliminar etiquetas HTML del contenido
             }
 
             const fetchAndDisplayContent = (url, targetElement) => {
-                fetch(url)
+                return fetch(url)
                     .then(response => response.json())
                     .then(data => {
                         const ultimaNoticia = data[data.length - 1];
                         const previewContenido = stripHTMLTags(ultimaNoticia.contenido).split(' ').slice(0, 50).join(' ');
                         const cuerpoHTML = `
-                            <div class="noticia">
-                                <a href="${ultimaNoticia.enlace_noticia}" class="enlace-noticia">
-                                    <div class="imagen-noticia" style="background-image: url(${ultimaNoticia.imagen});"></div>
-                                    <h3>${ultimaNoticia.titulo}</h3>
-                                    <p>${previewContenido}...</p>
-                                    <span class="leer-mas">Leer más</span>
-                                </a>
-                            </div>
+                            <!-- Estructura de la tarjeta de noticia -->
                         `;
                         targetElement.innerHTML += cuerpoHTML;
-                    })
-                    .catch(error => {
-                        console.log('Error al obtener la noticia:', error);
                     });
             };
 
@@ -159,9 +146,16 @@
                 });
 
             const cuerpoElement = document.getElementById('cuerpo');
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement);
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
-            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement)
+                .then(() => {
+                    return fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
+                })
+                .then(() => {
+                    return fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+                })
+                .catch(error => {
+                    console.log('Error al obtener las noticias:', error);
+                });
 
             fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
                 .then(response => response.text())
