@@ -75,16 +75,16 @@
             color: #333;
             text-align: center;
             margin-bottom: 10px;
-            line-height: 1.2; /* Ajustar el interlineado */
+            line-height: 1.2;
         }
 
         p {
             margin: 0;
             font-size: 1rem;
-            color: #555; /* Cambiar el color a un tono más oscuro que #777 */
+            color: #555;
             text-align: center;
             padding: 0 15px;
-            line-height: 1.6; /* Ajustar el interlineado */
+            line-height: 1.6;
         }
 
         .leer-mas {
@@ -127,7 +127,7 @@
             }
 
             const fetchAndDisplayContent = (url, targetElement) => {
-                fetch(url)
+                return fetch(url)
                     .then(response => response.json())
                     .then(data => {
                         const ultimaNoticia = data[data.length - 1];
@@ -143,21 +143,34 @@
                             </div>
                         `;
                         targetElement.innerHTML += cuerpoHTML;
-                    })
-                    .catch(error => {
-                        console.log('Error al obtener la noticia:', error);
                     });
             };
 
-    fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer').innerHTML = data;
-        })
-        .catch(error => {
-            console.log('Error al obtener el footer:', error);
+            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                });
+
+            const cuerpoElement = document.getElementById('cuerpo');
+
+            // Obtener y mostrar las noticias de la categoría "actualidad"
+            fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/actualidad/actualidad.json', cuerpoElement)
+                .then(() => {
+                    // Obtener y mostrar las noticias del top 5
+                    return fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/top5/top5.json', cuerpoElement);
+                })
+                .then(() => {
+                    // Obtener y mostrar las noticias de la categoría "descuentos-diarios"
+                    return fetchAndDisplayContent('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/descuentos-diarios/descuentos-diarios.json', cuerpoElement);
+                });
+
+            fetch('https://raw.githubusercontent.com/yamarka/yamarka.github.io/master/footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                });
         });
-});
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151165193967789" crossorigin="anonymous"></script>
